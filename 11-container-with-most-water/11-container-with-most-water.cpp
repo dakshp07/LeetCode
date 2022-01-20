@@ -1,9 +1,7 @@
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        int left=0;
-        int right=height.size()-1;
-        int max_area=INT_MIN;
+        int left=0, right=height.size()-1, max_area=INT_MIN;
         while(left<right)
         {
             if(height[left]>height[right])
