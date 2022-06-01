@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isPal(string s, int i, int j)
+    bool isPalindrome(string s, int i, int j)
     {
         while(i<j)
         {
@@ -14,17 +14,18 @@ public:
         return true;
     }
     bool validPalindrome(string s) {
-        int left=0, right=s.length()-1;
-        while(left<right)
+        // phele toh normal check karo agar koi 2 char same nhi toh unko nikal ke dekho
+        int i=0, j=s.length()-1;
+        while(i<j)
         {
-            if(s[left]==s[right])
+            if(s[i]==s[j])
             {
-                left++;
-                right--;
+                i++;
+                j--;
             }
             else
             {
-                return isPal(s, left+1, right) || isPal(s, left, right-1);
+                return isPalindrome(s, i+1, j) || isPalindrome(s, i, j-1);
             }
         }
         return true;
