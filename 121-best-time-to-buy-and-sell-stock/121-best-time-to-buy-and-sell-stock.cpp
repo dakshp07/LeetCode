@@ -1,14 +1,15 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int mib=INT_MAX;
-        int pro=INT_MIN;
-        int n=prices.size();
-        for(int i=0; i<n; i++)
+        // simple karenge
+        // curr rakho, sum rakho
+        int curr=INT_MAX; // curr ko min karna
+        int sum=INT_MIN; // sum ko maximise karna
+        for(int i=0; i<prices.size(); i++)
         {
-            mib=min(mib, prices[i]);
-            pro=max(pro, prices[i]-mib);
+            curr=min(prices[i], curr);
+            sum=max(prices[i]-curr, sum);
         }
-        return pro;
+        return sum;
     }
 };
