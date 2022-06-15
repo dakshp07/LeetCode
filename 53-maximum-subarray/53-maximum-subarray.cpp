@@ -1,9 +1,8 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        // kadane laga do
-        int curr=nums[0];
-        int sum=nums[0];
+        // kadane lagao
+        int curr=nums[0], sum=nums[0];
         for(int i=1; i<nums.size(); i++)
         {
             // yaa toh curr+nums[i] ko lenge yaa phir sirf nums[i] ko
