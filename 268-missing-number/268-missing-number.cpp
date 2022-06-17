@@ -1,6 +1,8 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
+        // multiple ways to do:
+        // 1) use set:
         // unordered_set<int> st;
         // int mx=nums.size();
         // for(int i=0; i<=mx; i++)
@@ -18,6 +20,8 @@ public:
         //     ans=*it;
         // }
         // return ans;
+        
+        // 2) find sum of n natural nums, and then subtract it from the sum of ele in arr
         int n=nums.size();
         int tsum=(n*(n+1))/2;
         int sum=accumulate(nums.begin(), nums.end(), 0);
