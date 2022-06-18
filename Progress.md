@@ -50,3 +50,28 @@
 - [Inversion of an array](https://www.codingninjas.com/codestudio/problems/count-inversions_615)
 
 **Hint**: Hard IMO, O(N^2) is ez but to optimise will break head, think of sorting algos.
+
+## DAY 3 (18 June 2022)
+- [Seacrh in Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+
+**Hint**: Find how to use binary of 1D on 2D.
+
+- [Power](https://leetcode.com/problems/powx-n/)
+
+**Hint**: Find the pattern in the powers.
+
+- [Find majority element (>n/2 times)](https://leetcode.com/problems/majority-element/)
+
+**Hint**: Moore algo lagao.
+
+- [Find majority element (>n/3 times)](https://leetcode.com/problems/majority-element-ii/)
+
+**Hint**: Find how to make changes in moore algo to fit this question.
+
+- [Unique Paths](https://leetcode.com/problems/unique-paths/)
+
+**Hint**: Start from brute, recursion and then try to reduce the tree using dp. Most efficient is related to PnC, identify the pattern.
+
+- [Reverse Pairs](https://leetcode.com/problems/reverse-pairs/)
+
+**Hint**: Hard IMO, O(N^2) is ez but to optimise will break head, think of sorting algos (try to relate with inversion question of day 2).
