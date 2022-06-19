@@ -75,3 +75,27 @@
 - [Reverse Pairs](https://leetcode.com/problems/reverse-pairs/)
 
 **Hint**: Hard IMO, O(N^2) is ez but to optimise will break head, think of sorting algos (try to relate with inversion question of day 2).
+
+## DAY 4 (19 June 2022)
+- [2 Sum](https://leetcode.com/problems/two-sum/)
+
+**Hint**: Simple.
+
+- [4 Sum](https://leetcode.com/problems/4sum/)
+
+**Hint**: Use two sum and three sum somehow.
+
+- [Longest consecutive sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+
+**Hint**: Think of some data structure.
+
+- [Largest subarray with 0 sum](https://practice.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1)
+
+**Hint**: Some observation, some data structures.
+
+- [Count number of subarray with xor as k](https://www.interviewbit.com/problems/subarray-with-given-xor/)
+
+**Hint**: Some observation, some data structures.
+- [Longest substring with no repeating chars](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+**Hint**: Some observation, some data structures.
