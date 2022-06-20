@@ -99,3 +99,18 @@
 - [Longest substring with no repeating chars](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
 **Hint**: Some observation, some data structures.
+
+## DAY 5 (20 June 2022)
+- [Reverse a linkedlist](https://leetcode.com/problems/reverse-linked-list/)
+
+- [Find middle of linkedlist](https://leetcode.com/problems/middle-of-the-linked-list/)
+
+- [Merge two sorted linkedlist](https://leetcode.com/problems/merge-two-sorted-lists/)
+
+- [Remove nth node from back of linkedlist](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+- [Add two numbers in a linkedlist](https://leetcode.com/problems/add-two-numbers/)
+
+- [Delete a node when only node is given (no head)](https://leetcode.com/problems/delete-node-in-a-linked-list/)
+
+**Hint**: Full day has one hint _think of using a dummy node and try to understand the question if it was of array and not linkedlist_.
