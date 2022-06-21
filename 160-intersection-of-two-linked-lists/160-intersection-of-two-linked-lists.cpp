@@ -9,31 +9,23 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *a=headA, *b=headB;
-        int count1=0, count2=0;
-		
-		//counting lengths of both the linked list
-        for(ListNode *curr=headA;curr!=NULL; curr=curr->next) count1++;
-        for(ListNode *curr=headB;curr!=NULL; curr=curr->next) count2++;
-        
-		//If linked list 1 is longer, we traverse it, till it becomes equal to length of second...
-        while(count1>count2) {
-            count1--;
-            a=a->next;
+        // one is to start traversing one list and check every node in other one
+        // tc will be O(l1*l2)
+        // more optimal is to keep 2 dummy nodes and get the length of both list
+        // the one who is bigger make there dummy node traverse the first step as diff of length
+        // tc will be O(bigger len)+O(diff)+O(shorter len)=O(2*bigger)
+        // but its very complicated, fnd length diff and traverse
+        // the other approach is to iterate the two dummy nodes two times of their length
+        if(headA==NULL|| headB==NULL) return NULL;
+        ListNode *a=headA;
+        ListNode *b=headB;
+        // if both list have diff leng we stop after second iteration
+        while(a!=b)
+        {
+            // at end of first iteration we need to set the a, b back to head of their resp lists
+            a=a==NULL?headA: a->next;
+            b=b==NULL?headB: b->next;
         }
-        
-		//If second one is longer, we traverse it, till it becomes equal to length of first...
-        while(count2>count1) {
-            count2--;
-            b=b->next;
-        }
-        
-		//Since length of both is now equal, we traverse them together, and break if the nodes become equal...
-        while(a!=b) {
-            a=a->next;
-            b=b->next;
-        }
-        
         return a;
     }
 };
