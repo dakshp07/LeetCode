@@ -114,3 +114,18 @@
 - [Delete a node when only node is given (no head)](https://leetcode.com/problems/delete-node-in-a-linked-list/)
 
 **Hint**: Full day has one hint _think of using a dummy node and try to understand the question if it was of array and not linkedlist_.
+
+## DAY 6 (21 June 2022)
+- [Find intersection point in a linkedlist](https://leetcode.com/problems/intersection-of-two-linked-lists/)
+
+- [Detect a cycle](https://leetcode.com/problems/linked-list-cycle/)
+
+- [Reverse a linkedlist in a group of size k](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+
+- [Check if a linkedlist is a palindrome or not](https://leetcode.com/problems/palindrome-linked-list/)
+
+- [Find the starting point of a cycle in linkedlist](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+- [Flattening of linkedlist](https://practice.geeksforgeeks.org/problems/flattening-a-linked-list/1)
+
+**Hint**: Try to relate problems with the problems of DAY 5 and think of using fast, slow pointers
