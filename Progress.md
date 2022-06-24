@@ -129,3 +129,28 @@
 - [Flattening of linkedlist](https://practice.geeksforgeeks.org/problems/flattening-a-linked-list/1)
 
 **Hint**: Try to relate problems with the problems of DAY 5 and think of using fast, slow pointers
+
+## DAY 7 (24 June 2022)
+- [Rotate a linkedlist](https://leetcode.com/problems/rotate-list/description/)
+
+**Hint**: Think about a pattern.
+
+- [Clone a Linked List with random and next pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
+
+**Hint**: Think about putting a new list with the old one.
+
+- [3 sum](https://leetcode.com/problems/3sum/)
+
+**Hint**: Try to relate with 2 sum.
+
+- [Remove dupliacte from sorted array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+
+**Hint**: Try to use 2 pointer.s
+
+- [Max consecutive ones](https://leetcode.com/problems/max-consecutive-ones/)
+
+**Hint**: ez, should be done with no hints.
+
+- [Trap rainwater](https://leetcode.com/problems/trapping-rain-water/)
+
+**Hint**: Think from brute to optimal.
