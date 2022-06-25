@@ -154,3 +154,28 @@
 - [Trap rainwater](https://leetcode.com/problems/trapping-rain-water/)
 
 **Hint**: Think from brute to optimal.
+
+## DAY 8 (25 June 2022)
+- [N meetings in one room](https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1)
+
+**Hint**: Check how you can manage the meet timings.
+
+- [Minimum number of platforms](https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1#)
+
+**Hint**: Think is the order of arrival and departure important.
+
+- [Job sequencing problem](https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#)
+
+**Hint**: Think of a real life scenario and what would you do if to maxmize your gain if you have some days, some task.
+
+- [Fractional knapsack](https://practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1)
+
+**Hint**: You can pick fratcion too.
+
+- [Coins needed to make a change](https://www.geeksforgeeks.org/find-minimum-number-of-coins-that-make-a-change/)
+
+**Hint**: Just think of how you can minimize the number of coins.
+
+- [TActivity Selection (it is the same as N meeting in one room)](https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1)
+
+**Hint**: Same as n meetings one.
