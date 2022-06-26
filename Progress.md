@@ -176,6 +176,26 @@
 
 **Hint**: Just think of how you can minimize the number of coins.
 
-- [TActivity Selection (it is the same as N meeting in one room)](https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1)
+- [Activity Selection (it is the same as N meeting in one room)](https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1)
 
 **Hint**: Same as n meetings one.
+
+## DAY 9 (26 June 2022)
+
+**GENERAL TIP FOR SOLVING RECURSION PROBLEMS: ALWAYS UNDERSTAND THE TASKS (IE WHAT YOU ARE SUPPOSED TO FIND AND RETURN), DRAW THE TREE, WRITE PSUEDOCODE FOR TREE AND THEN IMPLEMENT THAT AS SOLUTION. LOOK IF YOU REDUCE THE TREE CALLS SOMEHOW.**
+
+**Hint:** Entire day has one hint (except for last one), follow the general tip mentioned above, try to relate one question with previous ones and try to go from brute to optimal
+
+- [Subset sum](https://practice.geeksforgeeks.org/problems/subset-sums2234/1)
+
+- [Subset sum 2](https://leetcode.com/problems/subsets-ii/)
+
+- [Combination sum 1](https://leetcode.com/problems/combination-sum/)
+
+- [Combination sum 2](https://leetcode.com/problems/combination-sum-ii/)
+
+- [Palindrom partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+
+- [K permutation sequence](https://leetcode.com/problems/permutation-sequence/)
+
+**Hint**: Find some observations, try to relate them with some maths and generalise the formula.
