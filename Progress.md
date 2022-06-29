@@ -199,3 +199,19 @@
 - [K permutation sequence](https://leetcode.com/problems/permutation-sequence/)
 
 **Hint**: Find some observations, try to relate them with some maths and generalise the formula.
+
+## DAY 10 (29 June 2022)
+
+**GENERAL TIP FOR SOLVING RECURSION PROBLEMS: ALWAYS UNDERSTAND THE TASKS (IE WHAT YOU ARE SUPPOSED TO FIND AND RETURN), DRAW THE TREE, WRITE PSUEDOCODE FOR TREE AND THEN IMPLEMENT THAT AS SOLUTION. LOOK IF YOU REDUCE THE TREE CALLS SOMEHOW.**
+
+**Hint:** Entire day has one hint, follow the general tip mentioned above, try to relate one question with previous ones and try to go from brute to optimal
+
+- [Print all permutations](https://leetcode.com/problems/permutations/)
+
+- [N queens](https://leetcode.com/problems/n-queens/)
+
+- [Sudoku](https://leetcode.com/problems/sudoku-solver/)
+
+- [M coloring](https://practice.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1#)
+
+- [Rat in maze](https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1)
