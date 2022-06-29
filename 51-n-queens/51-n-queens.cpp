@@ -1,40 +1,71 @@
 class Solution {
 public:
-    vector<vector<string> > sols; // 2D vector of strings to store the solutions
-    vector<vector<string>> solveNQueens(int n) {    
-	    vector<string> board(n, string(n, '.'));  // creating an empty board
-	    solve(board, 0); // calling the recursive function
-	    return sols; 
-    }
-    bool isSafe(vector<string>& board, int row, int col) {
-	    int n = size(board);
-	    for(int i = 0; i < n; i++) {
-			// checking if there is a queen in the same column
-		    if(board[i][col] == 'Q') return false; 
-		    // checking if there is a queen in the same diagonal (left to right)
-		    if(row - i >= 0 && col - i >= 0 && board[row - i][col - i] == 'Q') return false;
-		    if(row - i >= 0 && col + i <  n && board[row - i][col + i] == 'Q') return false;
-		    if(row + i <  n && col - i >= 0 && board[row + i][col - i] == 'Q') return false;
-		    if(row + i <  n && col + i <  n && board[row + i][col + i] == 'Q') return false;
-	    }
-	    return true;
-    }
-    // Recursive Function (solve) - It basically tries all possible placement of queen for the current row & recurses for it's next row
-    void solve(vector<string>& board, int row) {
-	// Base condition. 
-    // We reached the last row, so we have a solution so we add it to the solution vector
-	    if(row == size(board)) { 
-		    sols.push_back(board);
-		    return;
-    	}            
-	    // Try placing a queen on each column for a given row. 
-        // Explore next row by placing Q at each valid column for the current row
-	    for(int col = 0; col < size(board); col++){
-		    if(isSafe(board, row, col)) {
-			    board[row][col] = 'Q';    // Queen placed on a valid cell
-			    solve(board, row + 1);    // Exploring next row
-			    board[row][col] = '.';    // Backtracking to get all possible solutions
-		    }
+    bool isSafe(int row, int col, vector<string> &board, int n)
+    {
+        // we will check for left sides, since the rights are yet to filled
+        // (recursion is always moved from left to right)
+        // so we will check upper diagonal, horizontal, lower diagonal to see if queens are safe or not
+        // first upper diagonal
+        int og_row=row;
+        int og_col=col;
+        while(row>=0 && col>=0)
+        {
+            if(board[row][col]=='Q') return false; // if we find a queen we return false
+            row--; // or else we move on
+            col--;
         }
+        // second horizontal
+        // no row changes, only col
+        col=og_col;
+        row=og_row;
+        while(col>=0)
+        {
+            if(board[row][col]=='Q') return false;
+            col--;
+        }
+        // third is lower diagonal
+        col=og_col;
+        row=og_row;
+        while(row<n && col>=0)
+        {
+            if(board[row][col]=='Q') return false;
+            row++;
+            col--;
+        }
+        return true; // if we return no where means we are doing all good, return true if we still in function
+        
+    }
+    void func(int col, vector<string> &board, vector<vector<string>> &ans, string s, int n)
+    {
+        if(col==n) // if we reach last col, we just add the board in vector ans as its an answer
+        {
+            ans.push_back(board);
+            return;
+        }
+        for(int row=0; row<n; row++) // we traverse every row to see if we put any string in the given row and col
+        {
+            if(isSafe(row, col, board, n)) // helper function to see if rules are followed
+            {
+                board[row][col]='Q'; // keeping the queen
+                func(col+1, board, ans, s, n); // seeing for next col
+                // backtracking our queen as we now move to check next row
+                board[row][col]='.'; // removing the queen as we revert back in our recurison tree
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        // rules: every row has 1 queen, every col has 1 queen, and no queen can attack other queen (they attack if the queens lie in horizontal, diagonal, vertical direction)
+        // the logic is to try and see if we can fill colums
+        // if we fill col we check other queen position and draw the tree
+        // we check and revert back the recursion if unable to place any queen
+        vector<vector<string>> ans; // ans vector
+        vector<string> board(n); //  our board of size n*n
+        string s(n, '.'); // n size empty strings
+        for(int i=0; i<n; i++)
+        {
+            board[i]=s; // we push n size empty strings to our board
+        }
+        func(0, board, ans, s, n); // function to solve the board
+        return ans;
     }
 };
