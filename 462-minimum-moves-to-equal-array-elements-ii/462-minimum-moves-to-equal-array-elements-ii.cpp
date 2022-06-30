@@ -1,14 +1,14 @@
 class Solution {
 public:
     int minMoves2(vector<int>& nums) {
+        // its always good to change the eles to ele present at median value of sorted
         sort(nums.begin(), nums.end());
-        int mid=nums.size()/2;
-        int ans=0;
+        int median=nums[nums.size()/2];
+        int moves=0;
         for(int i=0; i<nums.size(); i++)
         {
-            int diff=abs(nums[mid]-nums[i]);
-            ans+=diff;
+            moves+=abs(nums[i]-median);
         }
-        return ans;
+        return moves;
     }
 };
