@@ -1,46 +1,39 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int length=nums.size();
-        int left=0;
-        int right=length-1;
-        while(left<right)
+        // linear serach is  brute force
+        // there will always be a section in the array which is sorted
+        // tc: O(log n) and sc: O(1)
+        int low=0, high=nums.size()-1;
+        while(low<=high)
         {
-            int mid=(left+right)/2;
-            if(nums[mid]>nums[right])
+            int mid=low+(high-low)/2;
+            if(nums[mid]==target) return mid;
+            // we will first find the part which is sorted
+            if(nums[mid]>=nums[low]) // means the left half is sorted
             {
-                left=mid+1;
+                if(nums[low]<=target && nums[mid]>=target) // means our target is b/w low and mid
+                {
+                    // then we will ask binary search to look in this range
+                    high=mid-1;
+                }
+                else
+                {
+                    low=mid+1;
+                }
             }
             else
             {
-                right=mid;
-            }
-        }
-        int start=left;
-        left=0;
-        right=length-1;
-        if(target>=nums[start] && target<=nums[right])
-        {
-            left=start;
-        }
-        else
-        {
-            right=start;
-        }
-        while(left<=right)
-        {
-            int mid=(left+right)/2;
-            if(nums[mid]==target)
-            {
-                return mid;
-            }
-            if(nums[mid]>target)
-            {
-                right=mid-1;
-            }
-            if(nums[mid]<target)
-            {
-                left=mid+1;
+                // now we know that our right half is sorted
+                if(nums[mid]<=target && nums[high]>=target) // means our target is b/w low and mid
+                {
+                    // then we will ask binary search to look in this range
+                    low=mid+1;
+                }
+                else
+                {
+                    high=mid-1;
+                }
             }
         }
         return -1;
