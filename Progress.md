@@ -215,3 +215,37 @@
 - [M coloring](https://practice.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1#)
 
 - [Rat in maze](https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1)
+
+## DAY 11 (30 June 2022)
+
+**GENERAL TIP FOR SOLVING BINARY SEARCH PROBLEMS: ALWAYS TRY TO IDENITFY THE RULES THAT YOU NEED TO FOLLOW IN QUESTEION AND TRY TO IDENTIFY THE SEARCH SPACE IN THE QUESTION WHERE YOU WILL APPLY BINARY SEARCH.**
+
+- [nth root of an integer](https://bit.ly/3rj7Ib1)
+
+**Hint:** Think about the boundaries.
+
+- [Matrix median](https://www.interviewbit.com/problems/matrix-median/)
+
+**Hint:** Think and relate how median exists in 1D Array (ie median is an element when there are exactly n/2 ele smaller than it).
+
+- [Find the element that appears once](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+
+**Hint:** Think abut left and right halves.
+
+- [Search element in sorted rotated array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+
+**Hint:** there will always be a part which is sorted.
+
+- [Median of 2 sorted arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)
+
+- [kth element of two sorted array](https://practice.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array1317/1)
+
+**Hint:** take help from median of 2 sorted array
+
+- [Allocate books](https://www.interviewbit.com/problems/allocate-books/)
+
+**Hint:** think of search space on which we can apply binary search, also keep the rules in mind
+
+- [agressive cows](https://www.spoj.com/problems/AGGRCOW/)
+
+**Hint:** think of search space on which we can apply binary search
