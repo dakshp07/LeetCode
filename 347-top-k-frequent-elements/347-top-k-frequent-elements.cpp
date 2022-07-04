@@ -1,24 +1,28 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> freq_map;
-        for (int i=0; i<nums.size(); i++) {
-            freq_map[nums[i]]++;
+        // lets use a heap and map
+        // map will store a num, its freq and then we pass that map to our heap
+        unordered_map<int, int> mp;
+        priority_queue<pair<int, int>> pq;
+        // stre freq
+        for(auto &num: nums)
+        {
+            mp[num]++;
         }
-        vector<vector<int>> buckets(nums.size() + 1); 
-        for (auto& kv : freq_map) {
-            int num = kv.first;
-            int freq = kv.second;
-            buckets[freq].push_back(num);
+        // pass the freq of each num in heap
+        for(auto &i: mp)
+        {
+            // we make pair as (freq, num) so that heap will order acc to freq
+            pq.push(make_pair(i.second, i.first));
         }
+        // now our heap has ans, we need to extract only top k ele
         vector<int> res;
-        for (int i = nums.size(); i >= 1 && res.size() < k; i--) {
-            if (!buckets[i].size())
-                continue;
-            for (int num : buckets[i]) {
-                if (res.size() == k) break;
-                res.push_back(num);
-            }
+        while(k!=0)
+        {
+            res.push_back(pq.top().second);
+            pq.pop();
+            k--;
         }
         return res;
     }
