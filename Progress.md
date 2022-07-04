@@ -249,3 +249,17 @@
 - [agressive cows](https://www.spoj.com/problems/AGGRCOW/)
 
 **Hint:** think of search space on which we can apply binary search
+
+## DAY 12 (4 July 2022)
+
+**Hint:** Entire day has one hint try to find how you can use min heap or max heap
+
+- [Kth largest element](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+
+- [Maximum sum combination](https://www.interviewbit.com/problems/maximum-sum-combinations/)
+
+- [Find median from data stream](https://leetcode.com/problems/find-median-from-data-stream/)
+
+- [Merge k sorted arrays](https://www.codingninjas.com/codestudio/problems/merge-k-sorted-arrays_975379)
+
+- [K most frequent elements](https://leetcode.com/problems/top-k-frequent-elements/)
