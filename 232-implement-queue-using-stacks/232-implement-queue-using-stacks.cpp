@@ -1,45 +1,44 @@
 class MyQueue {
 public:
-    stack<int> stk1;
-    stack<int> stk2;
+    // we can use 2 stacks, s1 and s2
+    // when we push:
+    // 1. transfer stuff from s1 to s2
+    // 2. push x to s1
+    // 3. transfer stuff from s2 to s1
+    stack<int> s1, s2;
+    MyQueue() {
+        
+    }
+    
     void push(int x) {
-        stk1.push(x);
+        // step 1
+        while(!s1.empty())
+        {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        // step 2
+        s1.push(x);
+        // step 3
+        while(!s2.empty())
+        {
+            s1.push(s2.top());
+            s2.pop();
+        }
     }
     
     int pop() {
-        if(stk2.empty())
-        {
-            while(!stk1.empty())
-            {
-                stk2.push(stk1.top());
-                stk1.pop();
-            }
-        }
-        int x = stk2.top();
-        stk2.pop();
-        return x;
+        int n=s1.top();
+        s1.pop();
+        return n;
     }
     
     int peek() {
-        if(stk2.empty())
-        {
-            while(!stk1.empty())
-            {
-                stk2.push(stk1.top());
-                stk1.pop();
-            }
-        }
-        int x = stk2.top();
-        return x;
+        return s1.top();
     }
     
     bool empty() {
-        if(stk1.empty() && stk2.empty()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return s1.empty();
     }
 };
 
