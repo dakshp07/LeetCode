@@ -263,3 +263,21 @@
 - [Merge k sorted arrays](https://www.codingninjas.com/codestudio/problems/merge-k-sorted-arrays_975379)
 
 - [K most frequent elements](https://leetcode.com/problems/top-k-frequent-elements/)
+
+## DAY 13 (5 July 2022)
+
+**Hint:** Entire day has one hint try to find how you can stack
+
+- [Implement stack using arrays](https://bit.ly/3KbHhN4)
+
+- [IMplement queue using arrays](https://bit.ly/3KbIjIW)
+
+- [Implement stack using queue](https://leetcode.com/problems/implement-stack-using-queues/)
+
+- [Implement queue using stack](https://leetcode.com/problems/implement-queue-using-stacks/)
+
+- [Check balanced paranthases](https://leetcode.com/problems/valid-parentheses/)
+
+- [Next greater element](https://leetcode.com/problems/next-greater-element-i/)
+
+Refer Nick White's video for this
