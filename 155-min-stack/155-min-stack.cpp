@@ -1,29 +1,32 @@
 class MinStack {
 public:
-    stack<int> st;
-    stack<int> min;
+    // create a stack and store pair (number, minimum)
+    stack<pair<int, int>> st;
+    MinStack() {
+        
+    }
+    
     void push(int val) {
-        if(min.empty() || val<=min.top())
+        // we see if stack is empty, if yes then the curr push is minimum
+        if(st.empty()) st.push(make_pair(val, val));
+        // if stack isnt empty then we check the second of top and see minimum
+        else
         {
-            min.push(val);
+            if(st.top().second<val) st.push(make_pair(val, st.top().second));
+            else st.push(make_pair(val, val));
         }
-        st.push(val);
     }
     
     void pop() {
-        if(st.top()==min.top())
-        {
-            min.pop();
-        }
         st.pop();
     }
     
     int top() {
-        return st.top();
+        return st.top().first;
     }
     
     int getMin() {
-        return min.top();
+        return st.top().second;
     }
 };
 
