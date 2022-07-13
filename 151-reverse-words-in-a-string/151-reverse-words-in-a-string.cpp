@@ -1,21 +1,23 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        stringstream chars(s);
+        // the first task will be take our individual words and reverse them individually
+        // we use a string stream to taeke the words from white spaces
+        stringstream st(s);
+        string res="";
         string word;
-        vector<string> alphabet;
-        while(chars>>word)
+        vector<string> alpha;
+        while(st>>word)
         {
-            alphabet.push_back(word);
+            alpha.push_back(word);
         }
-        reverse(alphabet.begin(), alphabet.end());
-        string temp="";
-        for(int i=0; i<alphabet.size(); i++)
+        reverse(alpha.begin(), alpha.end());
+        for(int i=0; i<alpha.size(); i++)
         {
-            temp+=alphabet[i];
-            temp+=" ";
+            res+=alpha[i];
+            res+=" ";
         }
-        temp.pop_back();
-        return temp;
+        res.pop_back();
+        return res;
     }
 };
