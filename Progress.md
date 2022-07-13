@@ -281,3 +281,21 @@
 - [Next greater element](https://leetcode.com/problems/next-greater-element-i/)
 
 Refer Nick White's video for this
+
+## DAY 14 (13 July 2022)
+
+**GENERAL TIP: LOOK HOW YOU CAN USE STUFFS LIKE QUEUE, STACKS, DLL IN ALL QUESTIONS**
+
+- [Next smaller element](https://www.interviewbit.com/problems/nearest-smaller-element/)
+
+- [LRU Cache](https://leetcode.com/problems/lru-cache/)
+
+- [LFU Cache](https://leetcode.com/problems/lfu-cache/)
+
+- [Largest Rectangle](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+
+- [Sliding window maximum](https://leetcode.com/problems/sliding-window-maximum/)
+
+- [Implement min stack](https://leetcode.com/problems/min-stack/)
+
+- [Stock span](https://leetcode.com/problems/online-stock-span/)
