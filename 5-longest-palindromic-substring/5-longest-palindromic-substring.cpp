@@ -1,42 +1,39 @@
 class Solution {
 public:
-    string expandFromMiddle(string s, int left, int right)
+    // expand function
+    string expand(string s, int left, int right)
     {
-        while(left>=0 && right<s.length())
+        if(left>right) return 0;
+        // move left and right acc to conditions
+        while(left>=0 && right<s.size() && s[left]==s[right])
         {
-            if(s[left]!=s[right]) break;
-            else
-            {
-                left--; // increment, decrement right and left if they are same
-                right++;
-            }
+            // update left and right
+            left--;
+            right++;
         }
-        return s.substr(left+1, right-left-1); // return the substring from boundries
+        // return the len
+        return s.substr(left + 1, right - (left + 1));
     }
-    
-    void bestAns(string& ans, string& candidate, int& ansLen) { // to pick the best ans
-        if(candidate.length() > ansLen) {
-            ans = candidate;
-            ansLen = candidate.length();
-        }
-    }
-    
     string longestPalindrome(string s) {
-        // one property of plaindrome is that you can start from middle
-        // so we will create a helper to start from middle
-        // and then cover two cases:
-        // 1. racecar: a middle ele with no match
-        // 2. abba: a middle char with match
-        string ans="";
-        int ansLen=0;
-        for(int i=0; i<s.length(); i++)
+        // brute force way is to use two for loops and generate all substrings
+        // store those substrings and find the longest one
+        // tc: O(n^2) for generating all subsets and another O(n), so total tc: O(n^3)
+        // which is very big
+        
+        // we use the concept of plaindrome where we expand from the center of a string
+        // and look for the substring which are valid palindromes
+        if(s.size()<1) return "";
+        int start=0, end=0; // start and end pointer
+        string ans;
+        for(int i=0; i<s.size(); i++)
         {
-            string odd=expandFromMiddle(s, i, i); // for case "racecar"
-            bestAns(ans, odd, ansLen); // check the best ans
-            string even=expandFromMiddle(s, i-1, i); // for case "abba"
-            bestAns(ans, even, ansLen); // check for the best when even comes in
-            
+            // we can have two possibilities here
+            // one is odd len string, other even string
+            string odd=expand(s, i, i); // odd has one center
+            string even=expand(s, i, i+1); // even has two centers
+            string max = odd.size() > even.size() ? odd : even; // take the max len string
+            ans = max.length() > ans.length() ? max : ans; // get the ans as max
         }
-        return ans; // return the substring
+        return ans;
     }
 };
