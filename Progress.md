@@ -299,3 +299,21 @@ Refer Nick White's video for this
 - [Implement min stack](https://leetcode.com/problems/min-stack/)
 
 - [Stock span](https://leetcode.com/problems/online-stock-span/)
+
+## DAY 15 (14 July 2022)
+
+**GENERAL TIP: ALL ARE EZ**
+
+- [Reverse word in string](https://leetcode.com/problems/reverse-words-in-a-string/)
+
+- [Longest Plaindrome in string](https://leetcode.com/problems/longest-palindromic-substring/)
+
+- [LFU Cache](https://leetcode.com/problems/lfu-cache/)
+
+- [Roman to integer](https://leetcode.com/problems/roman-to-integer/)
+
+- [SImplement STOI](https://leetcode.com/problems/string-to-integer-atoi/)
+
+- [Implement min stack](https://leetcode.com/problems/min-stack/)
+
+- [Longest common prefix](https://leetcode.com/problems/longest-common-prefix/)
