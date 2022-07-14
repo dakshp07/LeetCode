@@ -1,32 +1,30 @@
 class Solution {
 public:
     int myAtoi(string s) {
-        int ind=0;
+        // normal way se karenge
         int sign=1;
-        int n=s.size();
         int res=0;
-        // implment rule of whitespaces
-        while(ind<n && s[ind]==' ')
+        int i=0;
+        while(i<s.length() && s[i]==' ')
         {
-            ind++; // skip those indexes
+            i++; // skip white spaces
         }
-        // lets check sign
-        if(ind<n && s[ind]=='+')
+        if(i<s.length() && s[i]=='-')
         {
-            sign=1;
-            ind++;
+            sign=-1; // make sign as -1 if the char is negative
+            i++;
         }
-        else if(ind<n && s[ind]=='-')
+        else if(i<s.length() && s[i]=='+')
         {
-            sign=-1;
-            ind++;
+            sign=1; // make sign as 1 if the char is positive
+            i++;
         }
-        // next rule is to check all digits
-        while(ind<n && isdigit(s[ind]))
+        while(i<s.length() && isdigit(s[i]))
         {
-            int digit=s[ind]-'0';
+            // if we get a digit
+            int dig=s[i]-'0';
             // check overflow and underflow
-            if((res>INT_MAX/10) || (res==INT_MAX/10 && digit>INT_MAX%10))
+            if((res>INT_MAX/10) || (res==INT_MAX/10 && dig>INT_MAX%10))
             {
                 // now if we had a postiive int we return INT_MAX 
                 if(sign==1) return INT_MAX;
@@ -34,10 +32,9 @@ public:
                 else return INT_MIN;
             }
             // append the digit to res
-            res=res*10+digit;
-            ind++;
+            res=res*10+dig;
+            i++;
         }
-        // return ans with its sign
         return sign*res;
     }
 };
