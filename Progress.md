@@ -308,12 +308,24 @@ Refer Nick White's video for this
 
 - [Longest Plaindrome in string](https://leetcode.com/problems/longest-palindromic-substring/)
 
-- [LFU Cache](https://leetcode.com/problems/lfu-cache/)
-
 - [Roman to integer](https://leetcode.com/problems/roman-to-integer/)
 
-- [SImplement STOI](https://leetcode.com/problems/string-to-integer-atoi/)
+- [Implement STOI](https://leetcode.com/problems/string-to-integer-atoi/)
 
 - [Implement min stack](https://leetcode.com/problems/min-stack/)
 
 - [Longest common prefix](https://leetcode.com/problems/longest-common-prefix/)
+
+## DAY 16 (16 July 2022)
+
+**GENERAL TIP: TRY TO USE THE PATTERN MATCHING ALGO**
+
+- [Z-function](https://leetcode.com/problems/implement-strstr/)
+
+- [KMP/LPS Algo](https://leetcode.com/problems/implement-strstr/)
+
+- [Minimum character need to make palindrome](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/)
+
+- [Check for anagrams](https://leetcode.com/problems/valid-anagram/)
+
+- [Count and say](https://leetcode.com/problems/count-and-say/)
