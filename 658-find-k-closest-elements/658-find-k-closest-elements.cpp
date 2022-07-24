@@ -1,46 +1,30 @@
 class Solution {
 public:
-    int find(vector<int>& arr, int x, int l, int r) {
-        int n = arr.size();
-        while(l<=r) {
-            int mid = (l+r)/2;
-            if(arr[mid]==x) return mid;
-            if(arr[mid] < x && (mid==n-1 || x<arr[mid+1])) return mid;
-            else if(arr[mid] < x) {
-                l = mid+1;
-            } else if(arr[mid] > x) {
-                r = mid-1;
+    struct comp
+    {
+        bool operator()(const pair<int, int> a, const pair<int, int> b)
+        {
+            if(a.first==b.first)
+            {
+                return a.second>b.second;
             }
+            return a.first>b.first;
         }
-        return -1;
-    }
+    };
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-        int n = arr.size();
-        int idx = find(arr,x,0,n-1);
+        // we can use a heap to store <ele, diff> but as <diff, ele> so that the heap orders them accordingly
+        // since two ele can have same diff we will use custom sort to check if same diff occurs then we sort acc to ele or else we order acc to diff;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, comp> pq;
+        for(int i=0; i<arr.size(); i++)
+        {
+            int diff=abs(arr[i]-x);
+            pq.push(make_pair(diff, arr[i]));
+        }
         vector<int> res;
-        if(idx == -1) {
-            for(int i=0; i<k; i++) res.push_back(arr[i]);
-            return res;
-        }
-        int l=idx, r=idx+1;
-        while(k>0 && l>=0 && r<n) {
-            if(abs(x-arr[l]) <= abs(x-arr[r])) {
-                res.push_back(arr[l]);
-                l--;
-            } else {
-                res.push_back(arr[r]);
-                r++;
-            }
-            k--;
-        }
-        while(k>0 && l>=0) {
-            res.push_back(arr[l]);
-            l--;
-            k--;
-        }
-        while(k>0 && r<n) {
-            res.push_back(arr[r]);
-            r++;
+        while(k!=0)
+        {
+            res.push_back(pq.top().second);
+            pq.pop();
             k--;
         }
         sort(res.begin(), res.end());
