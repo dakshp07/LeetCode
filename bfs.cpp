@@ -4,6 +4,18 @@ class Solution {
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         vector<int> vis(V+1, 0);
         vector<int>res;
+      // if we have multiple components then we do:
+      /*
+      for(int i=1;i<=V; i++)
+      {
+      if(!vis[i])
+      {
+      queue<int> q;
+      q.push(i);
+      vis[i]=1;
+      ....... so on
+      }
+      */
            if (!vis[0]){
                 queue<int>q;
                 q.push(0);
