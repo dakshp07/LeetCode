@@ -10,19 +10,21 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // we start traverse from left to right
-        // we keep going down and see if we reach any one of our target
-        // in case we get one of our target, we revert it back to the parent
-        // and then go to right to find other target, once we get target we return lca
-        if(root==NULL || p==root || q==root) return root;
-        // go to left
-        TreeNode* left=lowestCommonAncestor(root->left, p, q);
-        // go to rught
-        TreeNode* right=lowestCommonAncestor(root->right, p, q);
-        // if any of the two return null means we return other one
-        if(left==NULL) return right;
-        else if(right==NULL) return left;
-        // if none of them is null means we got the answer
-        else return root;
+        // we will keep on looking for our lca, lca is basically the point where we diverge 
+        // the point where we diverge into left and right of bt is lca
+        
+        // if root is null or if root is equal to p or q then root is our lca
+        if(root==NULL || root==p || root==q) return root;
+        
+        // if we dont return here then we will recursively call for left side subtree and right subtree
+        TreeNode *lf=lowestCommonAncestor(root->left, p, q);
+        TreeNode *rf=lowestCommonAncestor(root->right, p, q);
+        
+        // if left is null then our ans is right and if right is null our ans is left
+        if(lf==NULL) return rf;
+        if(rf==NULL) return lf;
+        
+        // if none of them are null then root is the point where we diverge
+        return root;
     }
 };
