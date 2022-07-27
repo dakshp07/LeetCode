@@ -25,7 +25,8 @@ void shortestPath(vector<pair<int, int>> adj[], int src, int V)
             topoSort(adj, i, vis, st); // we find the topo sort of every not visisted node
         }
     }
-    vector<int> dis(V, INT_MAX);
+    vector<int> dis(V, INT_MAX); // make all node dis as INT_MAX
+    dis[src]=0; // but src is starting point so we mark 0
     while(!st.empty())
     {
         int node=st.top();
