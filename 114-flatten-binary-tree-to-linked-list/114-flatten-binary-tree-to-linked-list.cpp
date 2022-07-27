@@ -11,17 +11,16 @@
  */
 class Solution {
 public:
-    TreeNode *prev=NULL; // global var
+    TreeNode *prev=NULL;
     void flatten(TreeNode* root) {
-        // the brute force way is to get the inorder traversal for the tree
-        // make a new linkedlist and start appending the inorder traversal to it
-        // but we can do all that in one approach using recursion
         // tc: O(n) and sc: O(n)
+        // we will push all the right children to left side and then make a linkedlist
         if(root==NULL) return;
-        flatten(root->right);
-        flatten(root->left);
-        root->right=prev;
-        root->left=NULL;
-        prev=root;
+        flatten(root->right); // call for right half first
+        flatten(root->left); // left half comes next
+        // remove connections
+        root->right=prev; // the right becomes new connection with the other side nodes
+        root->left=NULL; // the left becomes null
+        prev=root; // update prev with the new root values and connection
     }
 };
