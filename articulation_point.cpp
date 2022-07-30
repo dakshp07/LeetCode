@@ -9,7 +9,7 @@ Code, Compile, Run and Debug online from anywhere in world.
 #include <iostream>
 
 using namespace std;
-void dfs(int node, int parent, vector<int> &vis, vector<int> &tim, vector<int> &low, int &timer, vector<int> adj[])
+void dfs(int node, int parent, vector<int> &vis, vector<int> &tim, vector<int> &low, int &timer, vector<int> adj[], vector<int> &isArticulation)
 {
     // we mark node as visited
     vis[node]=1;
@@ -24,13 +24,14 @@ void dfs(int node, int parent, vector<int> &vis, vector<int> &tim, vector<int> &
         if(!vis[it])
         {
             // recursively peform dfs on them to update their timer
-            dfs(it, node, vis, tim, low, timer, adj);
+            dfs(it, node, vis, tim, low, timer, adj, isArticulation);
             low[node]=min(low[node], low[it]); // update the lowest time of insertion by checking minimum of adj nodes
             if(low[it]>=tim[node] && parent!=-1) // formula/condtion for the edge to be a articulation point
             {
                 // we will get some duplicates, so we store node in array to avoid duplicates
                 isArticulation[node]=1;
             }
+            child++; // if DFS is called for adj nodes, means those are its child
         }
         // if its already visisted
         else
