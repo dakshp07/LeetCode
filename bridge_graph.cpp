@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-void dfs(int node, vector<int> &vis, vector<int> &tim, vector<int> &low, int &timer, vector<int> adj[])
+void dfs(int node, int parent, vector<int> &vis, vector<int> &tim, vector<int> &low, int &timer, vector<int> adj[])
 {
     // we mark node as visited
     vis[node]=1;
@@ -9,16 +9,17 @@ void dfs(int node, vector<int> &vis, vector<int> &tim, vector<int> &low, int &ti
     // we see adj nodes
     for(auto it: adj[node])
     {
-        // if the ajdj node isnt visited
+        if(it==parent) continue; // if the adj node is the parent we do nothing
+        // if the adj node isnt visited
         if(!vis[it])
         {
             // recursively peform dfs on them to update their timer
-            dfs(it, vis, tim, low, timer, adj);
+            dfs(it, node, vis, tim, low, timer, adj);
             low[node]=min(low[node], low[it]); // update the lowest time of insertion by checking minimum of adj nodes
-            if(low[it]>low[node]) // formula/condtion for the edge to be a bridge
+            if(low[it]>tim[node]) // formula/condtion for the edge to be a bridge
             {
                 // cout as this is our bridge
-                cout<<node<<" "<<endl;
+                cout<<node<<" "<<it<<endl;
             }
         }
         // if its already visisted
