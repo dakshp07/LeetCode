@@ -14,6 +14,7 @@ public:
         // one of the brute force way is to compare the letters of every string in word2 with every word in word1
         // tc: O(word1.size * word2.size)
         // the next optimal way is combine the word2 string into one, we will combine then by seeing the max no of times each char appears in every word of word2
+        // tc: O(word1.length()+word2.length())
         vector<string> res;
         vector<int> freq(26); // we will store the max count of word in word2
         for(int i=0; i<words2.size(); i++)
