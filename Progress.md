@@ -330,6 +330,6 @@ Refer Nick White's video for this
 
 - [Count and say](https://leetcode.com/problems/count-and-say/)
 
-## DAY 17-22 (31 July)
+## DAY 17-22 (31 July 2022)
 
 FINISHED STRIVER'S ENTIRE TREE SERIES, GRAPH SERIES. 
