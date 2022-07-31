@@ -5,6 +5,7 @@ public:
         // we first check the indexes are not out of bound
         if(sr>=0 && sc>=0 && sr<image.size() && sc<image[0].size())
         {
+            // instead of a visited array in dfs we will have the prev color and target color to check if the current node is already colored or not
             // we check if the color is prev color
             if(image[sr][sc]==prev_color)
             {
