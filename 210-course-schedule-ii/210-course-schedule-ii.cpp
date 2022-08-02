@@ -44,7 +44,7 @@ public:
                 }
             }
         }
-        // if cycle exists then we return the order
+        // if cycle does not exists then we return the order
         if(cnt==numCourses) return res;
         // else empty arr
         return {};
