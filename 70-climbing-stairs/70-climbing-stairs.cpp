@@ -64,7 +64,7 @@ public:
         // }
         // return dp[n];
         
-        // no space complexity (tc: O(n) as we do one iteration till n) (sc: O(n) as we use just an array)
+        // no space complexity (tc: O(n) as we do one iteration till n) (sc: O(1) as we use variable)
         if(n<=2) return n;
         int prev1=1, prev2=2, curr=0;
         for(int i=3; i<=n; i++)
