@@ -1,3 +1,4 @@
+const int MOD=1e9+7;
 int countPartitions(int n, int d, vector<int> &arr) {
     // so we need to find two subsets with sum s1, s2 such that s1>s2 and s1-s2=D
     // so lets say total_sum=s1+s2 (as we need two subsets of entire array)
@@ -12,7 +13,14 @@ int countPartitions(int n, int d, vector<int> &arr) {
     int func(int ind, int target)
     {
     if(target==0) return 1;
-    if(ind==0) return (arr[ind]==target);
+    if(ind==0)
+    {
+    if(target==0 && arr[0]==0)
+    return 2;
+    if(target==0 || target == arr[0])
+    return 1;
+    return 0;
+    }
     int not_pick=func(ind-1, target);
     int pick=0;
     if(arr[ind]<=target) pick=func(ind-1, target-arr[ind]);
@@ -25,7 +33,14 @@ int countPartitions(int n, int d, vector<int> &arr) {
     {
     if(dp[ind][target]!=-1) return dp[ind][target]
     if(target==0) return 1;
-    if(ind==0) return (arr[ind]==target);
+    if(ind==0)
+    {
+    if(target==0 && arr[0]==0)
+    return 2;
+    if(target==0 || target == arr[0])
+    return 1;
+    return 0;
+    }
     int not_pick=func(ind-1, target);
     int pick=0;
     if(arr[ind]<=target) pick=func(ind-1, target-arr[ind]);
@@ -44,8 +59,10 @@ int countPartitions(int n, int d, vector<int> &arr) {
     {
         dp[i][0]=1;
     }
-    // when target==0
-    if(arr[0]<=target) dp[0][arr[0]]=1;
+    // when ind==0
+    if(arr[0]==0) dp[0][0]=2;  // 2 cases -pick and not pick
+    else dp[0][0]=1;  // 1 case - not pick
+    if(arr[0]!=0 && arr[0]<=target) dp[0][arr[0]] = 1;  // 1 case -pick
     // for loops
     for(int ind=1; ind<n; ind++)
     {
@@ -54,7 +71,7 @@ int countPartitions(int n, int d, vector<int> &arr) {
             int not_pick=dp[ind-1][curr];
             int pick=0;
             if(arr[ind]<=curr) pick=dp[ind-1][curr-arr[ind]];
-            dp[ind][curr]=pick+not_pick;
+            dp[ind][curr]=(pick+not_pick)%MOD;
         }
     }
     return dp[n-1][target];
