@@ -1,6 +1,6 @@
-<h2>179. Largest Number</h2><h3>Medium</h3><hr><div><p>Given a list of non-negative integers <code>nums</code>, arrange them such that they form the largest number.</p>
+<h2>179. Largest Number</h2><h3>Medium</h3><hr><div><p>Given a list of non-negative integers <code>nums</code>, arrange them such that they form the largest number and return it.</p>
 
-<p><strong>Note:</strong> The result may be very large, so you need to return a string instead of an integer.</p>
+<p>Since the result may be very large, so you need to return a string instead of an integer.</p>
 
 <p>&nbsp;</p>
 <p><strong>Example 1:</strong></p>
@@ -13,18 +13,6 @@
 
 <pre><strong>Input:</strong> nums = [3,30,34,5,9]
 <strong>Output:</strong> "9534330"
-</pre>
-
-<p><strong>Example 3:</strong></p>
-
-<pre><strong>Input:</strong> nums = [1]
-<strong>Output:</strong> "1"
-</pre>
-
-<p><strong>Example 4:</strong></p>
-
-<pre><strong>Input:</strong> nums = [10]
-<strong>Output:</strong> "10"
 </pre>
 
 <p>&nbsp;</p>
