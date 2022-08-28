@@ -1,23 +1,22 @@
 class Solution {
 public:
-    static bool comp(int a, int b){
-        return (to_string(a)+to_string(b) > to_string(b)+to_string(a));
+    static bool cmp(string a, string b)
+    {
+        return a+b>b+a;
     }
-    
     string largestNumber(vector<int>& nums) {
-        int length=nums.size();
-        int i=0;
-        int j=1;
-        sort(nums.begin(), nums.end(), comp);
-        string ans;
-        for(int i=0; i<length; i++)
+        vector<string> temp;
+        for(int i=0; i<nums.size(); i++)
         {
-            ans+=to_string(nums[i]);
+            temp.push_back(to_string(nums[i]));
         }
-        if(nums[0] == 0) 
+        sort(temp.begin(), temp.end(), cmp);
+        string ans="";
+        for(int i=0; i<nums.size(); i++)
         {
-            ans="0";
+            ans+=temp[i];
         }
+        if(ans.size()>1 && ans[0]=='0') return "0";
         return ans;
     }
 };
