@@ -1,65 +1,70 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        // tabulation method
-        int n=nums.size();
-        int mx=1;
-        vector<int> dp(n, 1); // dp of size n
-        // dp[i]=signifies the lis that ends at i
-        for(int i=0; i<n; i++) // starting se end taak chalo
+        // we try to keep track of previous element that we choose so that we make sure that the subsequence is increasing as stated by the question
+        /*
+        recursion: tc: O(2^n) and sc: O(n)
+        func(3, 0) means lis starting from index 3 whose previous index was 0
+        prev_ind==-1 means we have not seen any prev index
+        int func(int ind, int prev_index)
         {
-            for(int prev=0; prev<i; prev++) // or prev ka track rakho
-            {
-                if(nums[prev]<nums[i]) // can my prev nums be a part of curr ?
-                {
-                    dp[i]=max(dp[i], 1+dp[prev]); // if yes then my lis now +1 of the prev lis
-                }
-            }
-            mx=max(mx, dp[i]); // puri dp ka max is my ans
+        if(ind==n) return 0;
+        // now we have two choices, to pick or not pick
+        if(prev_index==-1 || arr[prev_index]<arr[ind])
+        {
+        // we pick
+        int pick=1+func(ind+1, ind); // we move to next ele by incrementing our lis length by 1 and setting the prev_index to curr index which is picked
         }
-        return mx;
+        int not_pick=0+func(ind+1, prev_index); // the prev_index wont change if we dont pick the curr element
+        len=max(pick, not_pick);
+        return len;
+        }
+        
+        memoization: tc: O(n*n) and sc: O(n*n) and O(n)
+        // as ind ranges from 0 to n-1, we make dimension of n
+        // but prev_index is from -1 to n-1, so we shift by one pos as -1 cant be stored in array
+        // so prev_index is now from 0 to n
+        vector<vector<int>> dp(n, vector<int>(n+1, -1));
+        int func(int ind, int prev_index)
+        {
+        if(dp[ind][prev_index+1]!=-1) return dp[ind][prev_index+1];
+        if(ind==n) return 0;
+        // now we have two choices, to pick or not pick
+        if(prev_index==-1 || arr[prev_index]<arr[ind])
+        {
+        // we pick
+        int pick=1+func(ind+1, ind); // we move to next ele by incrementing our lis length by 1 and setting the prev_index to curr index which is picked
+        }
+        int not_pick=0+func(ind+1, prev_index); // the prev_index wont change if we dont pick the curr element
+        len=max(pick, not_pick);
+        return dp[ind][prev_index+1]=len;
+        }
+        */
+        // tabulation:
+        int n=nums.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+        // base case
+        // when ind==n, since the dp array is already initialized from 0 we dont need to write base case
+        // for(int prev_ind=0; prev_ind<=n; prev_ind++)
+        // {
+        //     dp[n][prev_ind]=0;
+        // }
+        
+        // for loops
+        for(int ind=n-1; ind>=0; ind--)
+        {
+            for(int prev_ind=ind-1; prev_ind>=-1; prev_ind--) // as the prev ind will not go beyond ind-1
+            {
+                // not pick
+                int len=0+dp[ind+1][prev_ind+1];
+                if(prev_ind==-1 || nums[prev_ind]<nums[ind])
+                {
+                    // we pick
+                    len=max(len, 1+dp[ind+1][ind+1]); // we move to next ele by incrementing our lis length by 1 and setting the prev_index to curr index which is picked
+                }
+                dp[ind][prev_ind+1]=len;
+            }
+        }
+        return dp[0][-1+1]; // as we need to shift the prev_index by +1
     }
 };
-
-
-// Print the lis too:
-// class Solution {
-// public:
-//     int lengthOfLIS(vector<int>& nums) {
-//         // tabulation method
-//         int n=nums.size();
-//         int mx=1;
-//         vector<int> dp(n, 1); // dp of size n
-//         vector<int> hash(n);
-//         int last_index=0;
-//         // dp[i]=signifies the lis that ends at i
-//         for(int i=0; i<n; i++) // starting se end taak chalo
-//         {
-//             hash[i]=i;
-//             for(int prev=0; prev<i; prev++) // or prev ka track rakho
-//             {
-//                 if(nums[prev]<nums[i] && 1+dp[prev]>dp[i]) // can my prev nums be a part of curr ?
-//                 {
-//                     dp[i]= 1+dp[prev]; // if yes then my lis now +1 of the prev lis
-//                     hash[i]=prev;
-//                 }
-//             }
-//             if(dp[i]>mx)
-//             {
-//                 mx=dp[i];
-//                 last_index=i;
-//             }
-//         }
-//         vector<int> temp;
-//         temp.push_back(nums[last_index]);
-//         while(hash[last_index]!=last_index)
-//         {
-//             last_index=hash[last_index];
-//             temp.push_back(nums[last_index]);
-//         }
-//         reverse(temp.begin(), temp.end());
-//         for(auto i: temp) cout<<i<<" ";
-//         cout<<endl;
-//         return mx;
-//     }
-// };
