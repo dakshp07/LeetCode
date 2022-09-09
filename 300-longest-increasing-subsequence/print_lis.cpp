@@ -1,5 +1,3 @@
-// hash array is used to print
-// the rest code (ie removing the hash) can be used to find the length of lis
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -15,7 +13,7 @@ int longestIncreasingSubsequence(int arr[], int n){
             
             if(arr[prev_index]<arr[i] && 1 + dp[prev_index] > dp[i]){
                 dp[i] = 1 + dp[prev_index];
-                hash[i] = prev_index; // for printing lis
+                hash[i] = prev_index;
             }
         }
     }
@@ -30,7 +28,6 @@ int longestIncreasingSubsequence(int arr[], int n){
         }
     }
     
-    // for printing lis
     vector<int> temp;
     temp.push_back(arr[lastIndex]);
     
