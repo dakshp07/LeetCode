@@ -1,50 +1,58 @@
 class Solution {
 public:
-    bool check(string &a, string &b)
-    {
-        if(a.size()!=b.size()+1) return false; // agar ek char se zyaada badi huyi toh chain nhi
-        int first=0;
-        int second=0;
-        while(first<a.size()) // a bada hain
-        {
-            if(a[first]==b[second]) // same huye toh dono aage
-            {
-                first++;
-                second++;
-            }
-            else // alag huye to a ko jaane do, usko refer karke chain dekh rahe isliye
-            {
-                first++;
-            }
-        }
-        if(first==a.size() && second==b.size()) return true; // agar dono pointer saath khatam huye toh badiya
-        return false;
-    }
-    
-    static bool comp(string &a, string &b)
+    static bool cmpr(string a, string b)
     {
         return a.size()<b.size();
     }
-    int longestStrChain(vector<string>& words) {
-        sort(words.begin(), words.end(), comp); // acc to length sort
-        // use lis
-        // instead of increase check if the strings are differentiating by one char
-        // tabulation method
-        int n=words.size();
-        int mx=1;
-        vector<int> dp(n, 1); // dp of size n
-        // dp[i]=signifies the lis that ends at i
-        for(int i=0; i<n; i++) // starting se end taak chalo
+    bool compare(string &s, string &t)
+    {
+        // we consider s is bcda and t will be bcd
+        if(s.size()!=t.size()+1) return false; // since the diff should be of just one char
+        // we see if the pointers of string s, t reach the end of their respective strings simultaneously
+        int pt1=0, pt2=0;
+        while(pt1<s.size())
         {
-            for(int prev=0; prev<i; prev++) // or prev ka track rakho
+            if(s[pt1]==t[pt2])
             {
-                if(check(words[i], words[prev]) && 1+dp[prev]>dp[i]) // can my prev words be a part of curr ? if yes then my lis now +1 of the prev lis
+                pt1++;
+                pt2++;
+            }
+            // if they dont match we just move pt1
+            else
+            {
+                pt1++;
+            }
+        }
+        // if both reach end we return true
+        if(pt1==s.size() && pt2==t.size()) return true;
+        return false;
+    }
+    int longestStrChain(vector<string>& words) {
+        // this question is very much similar to lis
+        // here in this question instead of finding lis we just need to see the max length of subsequence where the diff b/w two strings is just one character
+        
+        // here the question says sequence and not subsequence so we can sort the array on basis of length of words so that the subsets is handeled
+        sort(words.begin(), words.end(), cmpr);
+        int n=words.size();
+        vector<int> dp(n, 1);
+        for(int i=0; i<n; i++)
+        {
+            for(int prev=0; prev<i; prev++)
+            {
+                if(compare(words[i], words[prev]) && 1+dp[prev]>dp[i])
                 {
-                    dp[i]=1+dp[prev]; 
+                    dp[i]=1+dp[prev];
                 }
             }
-            mx=max(mx, dp[i]); // puri dp ka max is my ans
         }
-        return mx;
+        int ans=-1;
+        for(int i=0; i<n; i++)
+        {
+            if(dp[i]>ans)
+            {
+                ans=dp[i];
+            }
+        }
+        return ans;
     }
 };
