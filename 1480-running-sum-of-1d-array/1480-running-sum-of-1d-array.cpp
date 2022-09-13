@@ -1,13 +1,14 @@
 class Solution {
 public:
     vector<int> runningSum(vector<int>& nums) {
-        int run_sum=0;
-        vector<int> res;
-        for(int i=0; i<nums.size(); i++)
+        // start with a temp array and initialize the first ele of temp with arr[0]
+        int n=nums.size();
+        vector<int> temp(n);
+        temp[0]=nums[0];
+        for(int i=1; i<n; i++)
         {
-            run_sum+=nums[i];
-            res.push_back(run_sum);
+            temp[i]=temp[i-1]+nums[i];
         }
-        return res;
+        return temp;
     }
 };
