@@ -1,30 +1,25 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        if(s.length()>t.length())
+        // we run our pointer through the two strings
+        int i=0, j=0;
+        // we traverse both strings
+        while(i<s.length() && j<t.length())
         {
-            return false;
-        }
-        if(s=="" && t=="")
-        {
-            return true;
-        }
-        int j=0;
-        bool ok=false;
-        for(int i=0; i<t.length(); i++) // since t.len>s.len
-        {
-            if(t[i]==s[j])
+            // if the char match we move both
+            if(s[i]==t[j])
+            {
+                i++;
+                j++;
+            }
+            // we just move j
+            else
             {
                 j++;
             }
-            if(j==s.length())
-            {
-                // since we traverse whole string of s
-                // and at no point we didnt went out of the above condition
-                ok=true;
-                break;
-            }
         }
-        return ok;
+        // we see if i reached the end of s or not
+        // if it didnt means we ran out of t before s ended hence t isnt a subseq of s
+        return i==s.length();
     }
 };
