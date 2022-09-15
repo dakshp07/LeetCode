@@ -11,19 +11,24 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        // one way could be: use arr to store data and then reverse the array
-        // other way:
-        // phele toh curr head ko NULL pe daal do
-        // and then NULL waale node ko connect karo with old head
-        // and then do the same for every other node
-        // for last node point it to NULL
-        ListNode* newHead=NULL; // new head joh basically last hoga
-        while(head!=NULL) // will traverse the whole list
+        // one of the easiest way is to store the nodes in an array, reverse the array
+        // and then create a new list and add those ele of array in list as nodes, return head
+        // but thats brute
+        // we can do one thing
+        
+        // step 1: make a new head with null
+        ListNode *newHead=NULL; 
+        // step 2: traverse the list
+        while(head!=NULL)
         {
-            ListNode* next=head->next; // we take next
-            head->next=newHead; // and point that next to out dummy node ie newHead
-            newHead=head; // update newHead as head
-            head=next; // update head as next to keep traversal
+            // step 2.1: store head->next value
+            ListNode *next=head->next;
+            // step 2.2: make the head next to new head
+            head->next=newHead;
+            // step 2.3: the new head will get updated
+            newHead=head;
+            // step 2.4: the old head stores the value that just got newly connected
+            head=next;
         }
         return newHead;
     }
