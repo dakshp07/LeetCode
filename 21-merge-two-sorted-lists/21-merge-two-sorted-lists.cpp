@@ -11,27 +11,39 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        // the question is easy as it expects you to return a new list
-        // we will try to do this in place as well
-        ListNode *dummy, *temp; // we will move temp
-        dummy=new ListNode();
-        temp=dummy;
-        while(list1 && list2) // traverse the whole length of list1 and 2
+        // since we need to return a new list we keep two pointers
+        // one will be the new list and the other pointer will be used for traversing
+        ListNode* newList, *temp;
+        newList=new ListNode(); // initialize the head
+        temp=newList; // temp will be used to add
+        while(list1!=NULL && list2!=NULL) // we traverse entire of list1 and list2
         {
-            if(list1->val<list2->val) // if list1 val is smaller we put it first
+            // now we check the value of both list
+            // if list1->val>list2->val we add list2->val first
+            if(list1->val>list2->val)
+            {
+                temp->next=list2; // add the node in list
+                list2=list2->next; // move ahead in list 2
+                temp=temp->next; // move ahead in new list too
+            }
+            else
             {
                 temp->next=list1;
                 list1=list1->next;
+                temp=temp->next;
             }
-            else // if list2 val is smaller we put it first
-            {
-                temp->next=list2;
-                list2=list2->next;
-            }
-            temp=temp->next; // updating the list
         }
-        if(list1) temp->next=list1;
-        if(list2) temp->next=list2;
-        return dummy->next;
+        // if we still have some nodes left we add them in new list
+        if(list1!=NULL) 
+        {
+            temp->next=list1;
+            list1=list1->next;
+        }
+        if(list2!=NULL) 
+        {
+            temp->next=list2;
+            list2=list2->next;
+        }
+        return newList->next; // return head of new list
     }
 };
