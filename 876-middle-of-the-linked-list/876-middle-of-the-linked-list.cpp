@@ -11,18 +11,19 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        // one way is to go tthrough the list and get its size
-        // then you can /2 to get the middle node 
-        // traverse to the node and return the ans
-        // tc: O(n)+O(n/2)
-        // use tortoise method, similar to 1d array to return middle
-        ListNode* slow=head; 
-        ListNode* fast=head; // declare slow, fast at head
-        while(fast!=NULL && fast->next!=NULL) // travese till we reach end or traverse till the next is last
+        // one of the brute way is to find the entire length of linked list
+        // and then find the middle but thats brute
+        // we can use the concept of fast and slow pointer
+        ListNode *fast, *slow;
+        // both start from head
+        fast=head;
+        slow=head;
+        // since fast moves 2 times we keep a check if its null or not
+        while(fast!=NULL && fast->next!=NULL)
         {
-            slow=slow->next; // slow reaches next
-            fast=fast->next->next; // fast travels 2* times of slow
+            fast=fast->next->next; // fast moves by 2
+            slow=slow->next; // slow moves by 1
         }
-        return slow; // slow will have the middle element
+        return slow;
     }
 };
