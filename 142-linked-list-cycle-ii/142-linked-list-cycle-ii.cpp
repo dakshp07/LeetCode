@@ -9,32 +9,41 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        // basic approach hogi ki set use karo to find the cycle
-        // tc: O(n) and space is O(n)
-        // fast and slow use karenge
-        // step1: find collision by moving slow by 1 and fast by 2
-        // step2: now we will find the starting point, add new pointer and move it, slow by one step
-        // if they collide then it is the starting point of cycle
+        // we can use the standard method to find cycle
+        // ie use a set and push all next nodes in set
+        // if we come across any node which was already there in set we return true as its a cycle
+        // here instead of true we can return the node
+        // tc: O(n) for traversal and O(n) for sc as we use set
+        
+        // much better way would to use fast, slow pointer thing
+        // but we will have another pointer which starts a lil late
+        // so we find the cycle first through fast, slow and the third pointer will be used to find node
         if(head==NULL || head->next==NULL) // if we are the last or the next is last
         {
             return NULL;
         }
-        ListNode *slow=head; // takes one step at a time
-        ListNode *fast=head; // takes two step at a time
-        ListNode *entry=head; // starts a lil late
-        while(fast->next && fast->next->next)
+        ListNode *fast, *slow, *track;
+        // all of them will start from head
+        fast=head;
+        slow=head;
+        track=head;
+        // fast, slow starts as usual by 2, 1 steps each
+        while(fast!=NULL && fast->next!=NULL)
         {
-            slow=slow->next; // 1 step
-            fast=fast->next->next; // 2 step
-            if(slow==fast) // if there's a cycle
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow==fast) // if we get a cycle
             {
-                // now our entry ptr will come
-                while(slow!=entry) // will traverse till they collide
+                // now we start our track pointer
+                // now track will traverse the list till slow and they collide
+                // we do track with slow because slow has the cycle node wherease fast is at the next node where cycle was formed as it was taking 2 steps at a time
+                while(slow!=track)
                 {
-                    slow=slow->next; // 1 step
-                    entry=entry->next; // 1 step
+                    // both will take 1 step each
+                    slow=slow->next;
+                    track=track->next;
                 }
-                return entry;
+                return track; // once they collide track will have the cycle node
             }
         }
         return NULL;
