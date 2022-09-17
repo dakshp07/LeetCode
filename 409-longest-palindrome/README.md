@@ -7,20 +7,14 @@
 
 <pre><strong>Input:</strong> s = "abccccdd"
 <strong>Output:</strong> 7
-<strong>Explanation:</strong>
-One longest palindrome that can be built is "dccaccd", whose length is 7.
+<strong>Explanation:</strong> One longest palindrome that can be built is "dccaccd", whose length is 7.
 </pre>
 
 <p><strong>Example 2:</strong></p>
 
 <pre><strong>Input:</strong> s = "a"
 <strong>Output:</strong> 1
-</pre>
-
-<p><strong>Example 3:</strong></p>
-
-<pre><strong>Input:</strong> s = "bb"
-<strong>Output:</strong> 2
+<strong>Explanation:</strong> The longest palindrome that can be built is "a", whose length is 1.
 </pre>
 
 <p>&nbsp;</p>
