@@ -1,19 +1,17 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        // one of the ways could be to use some extra space and store stuffs in set
-        // above sol uses extra space, not possible
-        // the other could be to do it in place
-        // optimal is to use 2 pointer:
+        // so what we can do is we can keep two pointers and see if arr[i]==arr[i+1]
+        // if they are equal we then change there value with arr[j]
         int i=0;
         for(int j=1; j<nums.size(); j++)
         {
-            if(nums[i]!=nums[j]) // if they are diff
+            // if arr[i]!=arr[j] we keep moving
+            if(nums[i]!=nums[j])
             {
-                // increment i to next
                 i++;
-                nums[i]=nums[j]; // change the value of nums at j to nums at i
             }
+            nums[i]=nums[j];
         }
         return i+1;
     }
