@@ -12,35 +12,32 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        // will use a queue to store the root and then push it on to the queue
-        // further we will check for their left and right
-        vector<vector<int>> ans; // for final ans
-        // if root is null we return ans
-        if(root==NULL) return ans;
-        queue<TreeNode*> q;
-        // push the root
-        q.push(root);
-        // we will check till our queue becomes empty
+        // in order to peform a level order we need to do a bfs
+        // in bfs we use queue to make sure that fifo order is maintained
+        if(root==NULL) return {};
+        vector<vector<int>> res;
+        queue<TreeNode *> q;
+        q.push(root); // start with root
+        // we iterate till the queue is empty
         while(!q.empty())
         {
-            vector<int> level; // temp array to store level
-            int sz=q.size(); // queue size
-            // iterate over the queue as we will pop first ele and add more in it
+            int sz=q.size();
+            vector<int> lvl;
+            // we iterate over the size of queue as we have to see for all nodes
             for(int i=0; i<sz; i++)
             {
-                // we will first check the top of queue
+                // pick the node and pop it from queue
                 TreeNode *node=q.front();
-                // lets remove this from pop
                 q.pop();
-                // lets see if they have child on left and right
+                // if they have childs then push those child to queue so that they can be next
                 if(node->left!=NULL) q.push(node->left);
                 if(node->right!=NULL) q.push(node->right);
-                // we will push our node values to a vector
-                level.push_back(node->val);
+                // this will now complete our one level
+                lvl.push_back(node->val);
             }
-            // push level to ans;
-            ans.push_back(level);
+            // we now push this level to our ans
+            res.push_back(lvl);
         }
-        return ans;
+        return res;
     }
 };
