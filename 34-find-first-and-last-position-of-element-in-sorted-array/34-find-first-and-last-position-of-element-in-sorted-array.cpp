@@ -4,10 +4,17 @@ public:
     {
         int n=nums.size();
         int low=0, high=n-1;
+        int ans=-1;
         while(low<=high)
         {
             int mid=(low+high)/2;
-            if(nums[mid]<target)
+            // we keep on looking to the left if our nums[mid]==target as we need first occurence
+            if(nums[mid]==target)
+            {
+                ans=mid;
+                high=mid-1;
+            }
+            else if(nums[mid]<target)
             {
                 low=mid+1;
             }
@@ -16,27 +23,32 @@ public:
                 high=mid-1;
             }
         }
-        if(low==nums.size() || nums[low]!=target) return -1;
-        return low;
+        return ans;
     }
     int bs_right(vector<int> &nums, int target)
     {
         int n=nums.size();
         int low=0, high=n-1;
+        int ans=-1;
         while(low<=high)
         {
             int mid=(low+high)/2;
-            if(nums[mid]>target)
+            // we keep on looking to the right if our nums[mid]==target as we need last occurence
+            if(nums[mid]==target)
             {
-                high=mid-1;
+                ans=mid;
+                low=mid+1;
             }
-            else
+            else if(nums[mid]<target)
             {
                 low=mid+1;
             }
+            else
+            {
+                high=mid-1;
+            }
         }
-        if(high<0 || nums[high]!=target) return -1;
-        return high;
+        return ans;
     }
     vector<int> searchRange(vector<int>& nums, int target) {
         // ek toh hain ki sort and return the indexes. tc: O(n) and sc: O(1)
