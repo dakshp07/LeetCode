@@ -10,21 +10,26 @@
 
 class Solution {
 public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // we go around the left or right side acc to values of p,q
-        // and the point where we diverge is the point of our LCA and we return that as our ans
+    TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q)
+    {
+        // if we reach end without any returns in b/w then we return NULL because then p,q dont exist in BST
         if(root==NULL) return NULL;
-        int curr=root->val; // get the val at root node
-        // if both p,q are bigger than root node we go to right
-        if(curr<p->val && curr<q->val)
+        // basically if we see a node whose val>p and <q then thats our lca
+        // beacuse after that p,q will descend into their own trees
+        if(root->val<p->val && root->val<q->val)
         {
-            return lowestCommonAncestor(root->right, p, q);
-        }
-        // if both p,q are smaller than root node we go to left
-        if(curr>p->val && curr>q->val)
+            // if val<p and <q means we need to go to right subtree
+            return lca(root->right, p, q);
+        };
+        if(root->val>p->val && root->val>q->val)
         {
-            return lowestCommonAncestor(root->left, p, q);
-        }
+            // if val>p and >q means we need to go to left subtree
+            return lca(root->left, p, q);
+        };
         return root;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // basically the node where node p, q diverge into their own path is the lca
+        return lca(root, p, q);
     }
 };
