@@ -11,21 +11,19 @@
  */
 class Solution {
 public:
-    bool isValid(TreeNode *root, long left, long right)
+    bool isValid(TreeNode* root, long left, long right)
     {
-        if(root==NULL) return true; // if we reach end without any false as return we give true
-        // if node is out of the left, right bounds then return false
+        // if we reach the last node that is null means we never returned anywhere so we return true
+        if(root==NULL) return true;
+        // if root->val is smaller than left value or greater than right we return false
         if(root->val<=left || root->val>=right) return false;
-        // else we continue traversing in left right by updating our boundaries
-        // as i go on left my right boundary is updated with parent node val
-        // and on going to left my left boundary is updated with parent node val
+        // else we upate our left val and right val in our recursive call and keep moving
         return isValid(root->left, left, root->val) && isValid(root->right, root->val, right);
     }
     bool isValidBST(TreeNode* root) {
-        // we give a range to the nodes
-        // the root starts with an range of [INT_MIN, INT_MAX]
-        // corresponding nodes will have diff ranges
-        // if they follow range, we return true and move to next thing else we return false
+        // we have to make sure that the rules of BST are followed
+        // lets write a recursive func
+        // we start with the max values that a left, right node can have ie long min, max respectively
         return isValid(root, LONG_MIN, LONG_MAX);
     }
 };
