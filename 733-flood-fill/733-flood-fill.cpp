@@ -1,30 +1,31 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>> &image, int sr, int sc, int prev_color, int target_color)
+    void dfs(vector<vector<int>>& image, int sr, int sc, int target_color, int prev_color)
     {
-        // we first check the indexes are not out of bound
-        if(sr>=0 && sc>=0 && sr<image.size() && sc<image[0].size())
-        {
-            // instead of a visited array in dfs we will have the prev color and target color to check if the current node is already colored or not
-            // we check if the color is prev color
-            if(image[sr][sc]==prev_color)
-            {
-                // we color this cell
-                image[sr][sc]=target_color;
-                // and also fill adj cells
-                dfs(image, sr+1, sc, prev_color, target_color);
-                dfs(image, sr, sc-1, prev_color, target_color);
-                dfs(image, sr-1, sc, prev_color, target_color);
-                dfs(image, sr, sc+1, prev_color, target_color);
-            }
-        }
+        // base case for dfs
+        if(sr>=image.size() || sc>=image[0].size() || sr<0 || sc<0 || image[sr][sc]!=prev_color) return;
+        // now we make this node as target color
+        image[sr][sc]=target_color;
+        // and move
+        // up
+        dfs(image, sr-1, sc, target_color, prev_color);
+        // down
+        dfs(image, sr+1, sc, target_color, prev_color);
+        // left
+        dfs(image, sr, sc-1, target_color, prev_color);
+        // right
+        dfs(image, sr, sc+1, target_color, prev_color);
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        // we can peform a DFS or a BFS on the matrix
-        // lets try a DFS
-        if(image[sr][sc]!=color)
+        // we will peform a simple dfs on the matrix
+        // we pick up the ele at (sr,sc) and then look for all other neighboring nodes which has same color as the node at (sr, sc)
+        // and mark them with target color
+        
+        // we peform a dfs only if the node is not of target color already
+        int prev_color=image[sr][sc];
+        if(prev_color!=color)
         {
-            dfs(image, sr, sc, image[sr][sc], color); // prev color is the existing color the cell has and the target is the one given
+            dfs(image, sr, sc, color, prev_color);
         }
         return image;
     }
