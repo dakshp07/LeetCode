@@ -32,19 +32,33 @@ public:
         }
         */
         // tabulation: tc: O(n) and sc: O(n)
-        int n=cost.size();
-        vector<int> dp(1001, 0);
+        // int n=cost.size();
+        // vector<int> dp(1001, 0);
         // base case
-        dp[0]=cost[0];
-        dp[1]=cost[1];
+        // dp[0]=cost[0];
+        // dp[1]=cost[1];
         // for loops
+        // for(int ind=2; ind<n; ind++)
+        // {
+        //     int one_step=cost[ind]+dp[ind-1];
+        //     int two_step=cost[ind]+dp[ind-2];
+        //     dp[ind]=min(one_step, two_step);
+        // }
+        // since we can either take one step or two step we return min
+        // return min(dp[n-1], dp[n-2]);
+        
+        // space optmise: tc: O(n) and sc: O(1)
+        int n=cost.size();
+        int prev1=cost[0];
+        int prev2=cost[1];
         for(int ind=2; ind<n; ind++)
         {
-            int one_step=cost[ind]+dp[ind-1];
-            int two_step=cost[ind]+dp[ind-2];
-            dp[ind]=min(one_step, two_step);
+            int one_step=cost[ind]+prev1;
+            int two_step=cost[ind]+prev2;
+            int curr=min(one_step, two_step);
+            prev1=prev2;
+            prev2=curr;
         }
-        // since we can either take one step or two step we return min
-        return min(dp[n-1], dp[n-2]);
+        return min(prev1, prev2);
     }
 };
