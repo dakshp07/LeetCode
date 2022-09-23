@@ -1,97 +1,59 @@
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        // ek toh hain ki brute force karo
-        // recursively try hands around by going down and going right
-        // the answer to both will add up to give final ans
-        // tc will be exponantial, its recursion
-        // dp ka use karlo or todhe states save karo while recursion, n*m ki tc or n*m ka sc
-        // todha or optimise kar paayege if we use PnC
-        // video dekho striver ka for approach
-        // int total=n+m-2;
-        // int r=m-1;
-        // double res=1;
-        // for(int i=1; i<=r; i++)
-        // {
-        //     res=res*(total-r+i)/i;
-        // }
-        // return res;
-        
-        // recursion: tc: O(2^m*n) and sc: O(path length) as stack space for recusion
+        // we use recursion to try all paths possible
+        // and then we use memoization to reduce tc for overlapping sub problems
+        // and tabulation to reduce tc even more
         /*
-        int fun(int row, int col)
+        recursion: tc: O(2^n) and sc: O(path length) as we will travel our entire path
+        int func(int row, int col)
         {
-        if(row==0 && col==0) means we reached (0, 0)
-        {
-        return 1;
-        }
-        if(row<0 || col<0) return 0; if we reach out of bounds
-        int up=func(row-1, col); // go up
+        // we start from (m-1,n-1)
+        // base case: if we reach (0,0) we return 1
+        if(row==0 && col==0) return 1;
+        // out of bounds cases
+        if(row<0 || col<0) return 0; 
+        // we move up and left as we coming from (m-1,n-1)
+        int up=func(row-1, col);
         int left=func(row, col-1);
-        return left+up;
+        return up+left;
         }
         
-        // lets do memoization: O(m*n) and sc: O(path length) as stack space for recusion + O(n*m) for dp array
+        memoization: tc: O(2^n) and sc: O(path length) + O(n*m);
         vector<vector<int>> dp(n, vector<int>(m, -1));
-        int func(int row, int col, vector<int> &dp)
+        int func(int row, int col)
         {
-        if(row==0 && col==0) means we reached (0, 0)
-        {
-        return 1;
-        }
-        if(row<0 || col<0) return 0; if we reach out of bounds
         if(dp[row][col]!=-1) return dp[row][col];
-        int up=func(row-1, col); // go up
+        // we start from (m-1,n-1)
+        // base case: if we reach (0,0) we return 1
+        if(row==0 && col==0) return 1;
+        // out of bounds cases
+        if(row<0 || col<0) return 0; 
+        // we move up and left as we coming from (m-1,n-1)
+        int up=func(row-1, col);
         int left=func(row, col-1);
-        return dp[row][col]=left+up;
+        return dp[row][col]=up+left;
         }
         */
-        // lets try tabulation: tc: O(n*m) and sc: O(n*m) just for array
-        vector<vector<int>> dp(n, vector<int>(m, -1));
-        // dp[i][j] stored the no of path to reach the node (i, j)
-        dp[0][0]=1; // if we are at index (0, 0) theres just one way
-        for(int i=0; i<n; i++)
+        // tabulation: tc: O(n*m) and sc: O(n*m)
+        vector<vector<int>> dp(n, vector<int>(m, 0));
+        // base case
+        dp[0][0]=1;
+        for(int row=0; row<n; row++)
         {
-            for(int j=0; j<m; j++)
+            for(int col=0; col<m; col++)
             {
-                int up=0, left=0;
-                if(i==0 && j==0) dp[i][j]=1; // of we are at (0,0)
-                // we go up and left
+                if(row==0 && col==0) dp[row][col]=1;
                 else
                 {
-                    if(i>0) up=dp[i-1][j];
-                    if(j>0) left=dp[i][j-1];
-                    dp[i][j]=up+left; // add up, left to dp[i][j]
+                    // handling out of bound cases ie base case of row<0 || col<0
+                    int up=0, left=0;
+                    if(row>0) up=dp[row-1][col];
+                    if(col>0) left=dp[row][col-1];
+                    dp[row][col]=up+left;
                 }
             }
         }
         return dp[n-1][m-1];
     }
-    /*
-    // space optimization: tc: O(m*n) and sc: O(n) as we use one n size array
-    we see that we are using row-1 and col-1 again and again
-    vector<int> prev(n,0);
-    for(int i=0; i<m; i++){
-        vector<int> temp(n,0);
-        for(int j=0; j<n; j++){
-            if(i==0 && j==0){
-                temp[j]=1;
-                continue;
-            }
-            
-            int up=0;
-            int left =0;
-            
-            if(i>0)
-                up = prev[j];
-            if(j>0)
-                left = temp[j-1];
-                
-            temp[j] = up + left;
-        }
-        prev = temp;
-    }
-    
-    return prev[n-1];
-    */
 };
