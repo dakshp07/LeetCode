@@ -1,15 +1,50 @@
 class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
-        // dono ways try karlo
-        // 1 step chadne ka or 2 step chadne ka
-        // choose min
-        for(int i=2; i<cost.size(); i++)
+        // we can explore all possibilities by using recursion
+        // and then we try to identify subproblems and use memoization to remove them
+        // and then tabulation will help in reducing the tc
+        /*
+        recursion: tc: O(2^n) and sc: O(n)
+        int func(int ind)
         {
-            // min step chaiye from 1 step, 2 step
-            cost[i]+=min(cost[i-1], cost[i-2]);
+        // base case:
+        // if we reach our end goal then we return the cost of the those steps
+        if(ind==0 || ind==1) return cost[ind];
+        // computation:
+        int one_step=cost[ind]+func(ind-1);
+        int two_step=cost[ind]+func(ind-2);
+        return min(one_step, two_step);
         }
-        // i-1 and i-2 ka minimum return karo
-        return min(cost[cost.size()-1], cost[cost.size()-2]);
+        
+        memoization: tc: O(n) and sc: O(n)+O(n)
+        vector<int> dp(1001, -1);
+        int func(int ind)
+        {
+        if(dp[ind]!=-1) return dp[ind];
+        // base case:
+        // if we reach our end goal then we return the cost of the those steps
+        if(ind==0 || ind==1) return cost[ind];
+        // computation:
+        int one_step=cost[ind]+func(ind-1);
+        int two_step=cost[ind]+func(ind-2);
+        return min(one_step, two_step);
+        }
+        */
+        // tabulation: tc: O(n) and sc: O(n)
+        int n=cost.size();
+        vector<int> dp(1001, 0);
+        // base case
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+        // for loops
+        for(int ind=2; ind<n; ind++)
+        {
+            int one_step=cost[ind]+dp[ind-1];
+            int two_step=cost[ind]+dp[ind-2];
+            dp[ind]=min(one_step, two_step);
+        }
+        // since we can either take one step or two step we return min
+        return min(dp[n-1], dp[n-2]);
     }
 };
