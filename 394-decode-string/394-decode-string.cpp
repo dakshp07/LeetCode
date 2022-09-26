@@ -1,38 +1,54 @@
 class Solution {
 public:
     string decodeString(string s) {
-        stack<string>st;
-        int num=0;
-        vector<int>count;
-        string ans="";
-        int n= s.size();
-        for(int i=0;i<s.size();i++){
-            
-            if(isdigit(s[i])){
-                num=num*10+s[i]-'0';
+        stack<char> st;
+        for(int i=0; i<s.size(); i++)
+        {
+            // we keep pushing the ele into the stack until we see a opening bracket
+            if(s[i]!=']')
+            {
+                st.push(s[i]);
             }
-            else if(s[i]=='['){
-                count.push_back(num);
-                st.push(ans);
-                num=0;
-                ans="";
-            }
-            else if(s[i]==']'){
-                int reps= count.back();
-                count.pop_back();
-                string last_str=st.top();
-                st.pop();
-                
-                while(reps--){
-                    last_str+=ans;
-                }
-                ans=last_str;
-            }
+            // when we see a closing bracket
             else
             {
-                ans+=s[i];
+                // we build a temp string by popping stuff from stack till we see a [
+                string temp="";
+                while(!st.empty() && st.top()!='[')
+                {
+                    temp=st.top()+temp;
+                    st.pop();
+                }
+                // pop the opening bracket too
+                st.pop();
+                // now we keep poping till we see our number
+                string num="";
+                while(!st.empty() && isdigit(st.top()))
+                {
+                    num=st.top()+num;
+                    st.pop();
+                }
+                // now we build the temp string by pushing it into the stack nums times
+                int nums=stoi(num);
+                while(nums!=0)
+                {
+                    for(int i=0; i<temp.size(); i++)
+                    {
+                        st.push(temp[i]);
+                    }
+                    nums--;
+                }
             }
         }
-        return ans;
+        // now we pop the stack and create our res string
+        string res="";
+        while(!st.empty())
+        {
+            res+=st.top();
+            st.pop();
+        }
+        // we reverse the res
+        reverse(res.begin(), res.end());
+        return res;
     }
 };
