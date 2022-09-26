@@ -1,37 +1,51 @@
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
+        // one way is to use two stacks and run through both strings parallely
+        // tc: O(n) and sc: O(2*n) at max where n is size of s,t
+        // other way is to use one stack and empty it everytime after processing one string
+        // tc: O(2*n) and sc: O(n) at max where n is size of s,t
         stack<char> st;
-        stack<char> st1;
-       
-        for(int i = 0; i < s.length(); i++)
+        // first we process s
+        for(int i=0; i<s.size(); i++)
         {
-            if(s[i] == '#')
-            {
-                if(!st.empty())
-                {st.pop();}
-            }
-            else
+            if(s[i]=='#' && st.empty()) continue;
+            if(s[i]!='#')
             {
                 st.push(s[i]);
             }
-        }
-        
-        for(int i = 0; i < t.length(); i++)
-        {
-            if(t[i] == '#')
+            else
             {
-                if(!st1.empty())
-                {
-                    st1.pop();
-                }
+                st.pop();
+            }
+        }
+        // now lets create resulatant string of s
+        string ress="";
+        while(!st.empty())
+        {
+            ress+=st.top();
+            st.pop();
+        }
+        // next we process t
+        for(int i=0; i<t.size(); i++)
+        {   
+            if(t[i]=='#' && st.empty()) continue;
+            if(t[i]!='#')
+            {
+                st.push(t[i]);
             }
             else
             {
-                st1.push(t[i]);
+                st.pop();
             }
         }
-       
-        return st==st1;
+        // now lets create resulatant string of t
+        string rest="";
+        while(!st.empty())
+        {
+            rest+=st.top();
+            st.pop();
+        }
+        return ress==rest;
     }
 };
