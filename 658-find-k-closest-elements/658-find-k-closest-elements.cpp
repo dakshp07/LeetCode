@@ -1,33 +1,41 @@
 class Solution {
 public:
-    struct comp
+    struct cmp
     {
         bool operator()(const pair<int, int> a, const pair<int, int> b)
         {
-            if(a.first==b.first)
+            // if diff is same then we return the smallest num
+            if(a.second==b.second)
             {
-                return a.second>b.second;
+                return a.first>b.first;
             }
-            return a.first>b.first;
+            // else we sort on basis of diff
+            return a.second>b.second;
         }
     };
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-        // we can use a heap to store <ele, diff> but as <diff, ele> so that the heap orders them accordingly
-        // since two ele can have same diff we will use custom sort to check if same diff occurs then we sort acc to ele or else we order acc to diff;
-        priority_queue<pair<int, int>, vector<pair<int, int>>, comp> pq;
+        // so we need to return top k closest ele
+        // if the diff is unique, then we sort on basis of diff
+        // else we see the numbers
+        // we can use a max_heap and probably use a cmp on it to sort
+        // tc: O(n) for getting diff + O(log n) for insertion + O(nlogn) for sorting
+        // in max_heap we store <num,diff>
+        // we could have used vector of pairs as well, same implmentation just diff code
+        priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> pq;
+        // fill max_heap with <num,diff>
         for(int i=0; i<arr.size(); i++)
         {
-            int diff=abs(arr[i]-x);
-            pq.push(make_pair(diff, arr[i]));
+            pq.push({arr[i], abs(arr[i]-x)});
         }
-        vector<int> res;
+        // now we iterate max_heap till k==0
+        vector<int> ans;
         while(k!=0)
         {
-            res.push_back(pq.top().second);
+            ans.push_back(pq.top().first);
             pq.pop();
             k--;
         }
-        sort(res.begin(), res.end());
-        return res;
+        sort(ans.begin(), ans.end());
+        return ans;
     }
 };
