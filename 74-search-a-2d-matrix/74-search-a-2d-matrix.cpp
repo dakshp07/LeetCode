@@ -1,24 +1,33 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        // linear search laga lo, O(N^2)
-        // binary laga kon every row, so N rows, O(N*(logN))
-        // todha zyaada aacha binary:
-        // 1) consider this matrix as a linear array, but we wont use extra space
-        // 2) now we will use the index to search elements
-        // 3) O(log(N*M)) M=no of cols
-        int n=matrix.size(); // rows
-        int m=matrix[0].size(); // cols
-        int low=0, high=(n*m)-1; // finding the index as they will be in 1D array
+        // we will use binary search
+        // but with a formula to make sure that we can consider this matrix as linear array
+        // tc: O(log(n*m)) where n,m are no of rows,cols
+        /*
+        The problem statement states that the values of the last col of the ith row is
+        greater than the first col of (i+1)th row. Also, each row is sorted.
+        This means that, if we linearly arrange the elements of each row, we will have a
+        sorted array. So we can now perform a binary search over it.
+        How will the matrix behave like an array without actually creating an auxiliary
+        array?
+        It could be achieved by the following formula :
+        - A n * m matrix converted into an array: matrix[x][y] : a[x * m + y]
+        - An array can be converted into n * m matrix: a[x] : matrix[x / m][x % m]
+        */
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int low=0;
+        int high=(n*m)-1;
         while(low<=high)
         {
-            int mid=(low+(high-low)/2); // setting mid
-            if(matrix[mid/m][mid%m]==target) // now to get correct row and col, we use mid/m to get row and mid%m to get col no (formula hain, remeber)
+            int mid=(low+high)/2;
+            // formula for getting the index of matrix is: matrix[mid/m][mid%m]
+            if(matrix[mid/m][mid%m]==target)
             {
                 return true;
             }
-            // adjust boundries just like we do in 1D array
-            if(matrix[mid/m][mid%m]>target)
+            else if(matrix[mid/m][mid%m]>target)
             {
                 high=mid-1;
             }
