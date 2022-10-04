@@ -1,20 +1,25 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        // linear serach is  brute force
-        // there will always be a section in the array which is sorted
-        // tc: O(log n) and sc: O(1)
-        int low=0, high=nums.size()-1;
+        // always remember there will always be a part in the entire array which will remain sorted
+        // so we need to identify that part and apply binary search for that part
+        // tc: O(log n)
+        int low=0;
+        int high=nums.size()-1;
         while(low<=high)
         {
-            int mid=low+(high-low)/2;
+            int mid=(low+high)/2;
             if(nums[mid]==target) return mid;
-            // we will first find the part which is sorted
-            if(nums[mid]>=nums[low]) // means the left half is sorted
+            // now we check which half is sorted
+            // what if left half is sorted?
+            if(nums[mid]>=nums[low])
             {
-                if(nums[low]<=target && nums[mid]>=target) // means our target is b/w low and mid
+                // if nums[mid]>nums[low] means the left half is sorted
+                // so we check on this half
+                if(nums[mid]>=target && nums[low]<=target)
                 {
-                    // then we will ask binary search to look in this range
+                    // if nums[mid] is > and nums[low] <
+                    // means our ans is somewhere b/w low and mid
                     high=mid-1;
                 }
                 else
@@ -22,12 +27,13 @@ public:
                     low=mid+1;
                 }
             }
+            // what is right half is sorted instead of left one
             else
             {
-                // now we know that our right half is sorted
-                if(nums[mid]<=target && nums[high]>=target) // means our target is b/w low and mid
+                if(nums[mid]<=target && nums[high]>=target)
                 {
-                    // then we will ask binary search to look in this range
+                    // if nums[mid] is < and nums[high] >
+                    // means our ans is somewhere b/w high and mid
                     low=mid+1;
                 }
                 else
