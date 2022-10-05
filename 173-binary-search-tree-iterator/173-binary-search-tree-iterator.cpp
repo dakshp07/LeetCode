@@ -11,35 +11,37 @@
  */
 class BSTIterator {
 public:
-    stack<TreeNode *> st;
-    // stack will be used to push everything in the left side of root
-    // if we ecnounter a next we return stack top
-    // and push all the right child of the top into stack
-    // has next is basically returning if stack is empty or not
+    // so we need to do a inorder traversal
+    // we can use a stack as the recursion code of inorder or any traversal uses recursive stack space
+    // inorder: LrootR
+    // the idea is to push all the left nodes, once a left node is called we call all its right nodes and push them onto stack
+    // has next will essentially check if the stack is empty or not
+    stack<TreeNode*> st;
+    // the below function pushes all the left nodes to stack
+    void pushAllLeft(TreeNode* root)
+    {
+        if(root==NULL) return;
+        st.push(root);
+        pushAllLeft(root->left);
+    }
     BSTIterator(TreeNode* root) {
-        // constructor will be used to initialize stack by adding all nodes
-        pushLeft(root);
+        // intialize the function through this constructor
+        pushAllLeft(root);
     }
     
     int next() {
-        // return top, pop ele and add new nodes
-        TreeNode *tp=st.top();
+        // now here we need to return the next element
+        // so we return the stack top
+        TreeNode* top_ele=st.top();
         st.pop();
-        pushLeft(tp->right);
-        return tp->val;
+        // and call the top_ele right ele and push them to stack
+        pushAllLeft(top_ele->right);
+        return top_ele->val;
     }
     
     bool hasNext() {
-        // check if stack has something or not
+        // here we just check stack is empty or not
         return st.size();
-    }
-    // function to push all nodes
-    void pushLeft(TreeNode *root){
-        while(root!=NULL)
-        {
-            st.push(root);
-            root=root->left;
-        }
     }
 };
 
