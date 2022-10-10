@@ -1,50 +1,39 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        // using a freq array to store the indexes
-        vector<int> freq(256, -1);
-        int left=0, right=0, len=0; // keep a pointer left, right starting at 0
-        while(right<s.size())
+        // we can use the concept of sliding window and map
+        // map will keep track of the unique elements and the window will move
+        if(s.length()==0)return 0;   //if string of length zero comes simply return 0
+        unordered_map<char, int> mp;
+        // now two pointers will keep track of the window
+        // i is left and j is right, we pop from left and add from right
+        int i=0, j=0, ans=INT_MIN;
+        while(j<s.size())
         {
-            if(freq[s[right]]!=-1) // check the freq of s[right]
+            mp[s[j]]++; // add ele to map
+            // if map size is equal to window size, means all ele in this window are unique
+            if(mp.size()==j-i+1)
             {
-                left=max(freq[s[right]]+1, left); // update it with the most recent index
+                // in this case we update ans
+                ans=max(ans, j-i+1);
             }
-            freq[s[right]]=right; // if it doesnt exist we make it
-            len=max(len, right-left+1); // update the len
-            right++; // update right
+            // now if mp.size()<window size means there are duplicates in this window, so we pop the duplicates
+            else if(mp.size()<j-i+1)
+            {
+                while(mp.size()<j-i+1)
+                {
+                    mp[s[i]]--; // remove duplicates, we use i since its the left and j is right
+                    // we remove the entry completely if it becomes 0
+                    if(mp[s[i]]==0)
+                    {
+                        mp.erase(s[i]);
+                    }
+                    // and increment i
+                    i++;
+                }
+            }
+            j++; // update j ie right
         }
-        return len;
+        return ans;
     }
 };
-
-/*
-another approach:
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        // sliding window use karenge  and use a map to keep the track of visited elements
-        unordered_map<int, int> mp;
-        int res=0; // length of window
-        int curr=0; // pointing to current element
-        for(int i=0; i<s.length(); i++)
-        {
-            // i-curr will give the length of current window
-            res=max(res, i-curr);
-            // agar char is present in the map but no in our window, so we include it
-            if(mp.find(s[i])!=mp.end() && mp[s[i]]>=curr)
-            {
-                curr=mp[s[i]]+1;
-            }
-            mp[s[i]]=i;
-        }
-        // agar sabse lambi substring is in end toh curr kabhi bhi update nhi hoga
-        // for that we will do:
-        if(res<s.length()-curr)
-        {
-            return s.length()-curr;
-        }
-        return res;
-    }
-};
-*/
