@@ -1,24 +1,27 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        map<double, vector<vector<int>>> umap;
-        vector<vector<int>> ans;
+        // whenever we see top k and all those type questions
+        // we use heap in those cases, here we will use min heap
+        // as it orders the ele from min to max
+        priority_queue<pair<double, pair<int, int>>, vector<pair<double, pair<int, int>>>, greater<pair<double, pair<int, int>>>> pq;
+        // i will store distance, both ele in my min heap
+        // distance will come first as we need ordering on its basis
         for(int i=0; i<points.size(); i++)
         {
-            umap[(double)sqrt(points[i][0]*points[i][0]+points[i][1]*points[i][1])].push_back(points[i]);
+            int x=points[i][0];
+            int y=points[i][1];
+            double dis=sqrt(x*x+y*y);
+            pq.push({dis, {x, y}});
         }
-        for(auto x: umap)
+        vector<vector<int>> ans;
+        while(k!=0)
         {
-            for(auto y: x.second)
-            {
-                ans.push_back(y);
-                k--;
-                if(k==0)
-                {
-                    return ans;
-                }
-            }
+            auto it=pq.top();
+            pq.pop();
+            ans.push_back({it.second.first, it.second.second});
+            k--;
         }
-        return {};
+        return ans;
     }
 };
