@@ -1,39 +1,34 @@
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-        // for loop for one ele and then binary search for the other 2 ele
-        int length=nums.size();
-        // intialize sum as nums[0]+nums[1]+nums[length-1];
-        int res=nums[0]+nums[1]+nums[length-1];
+        // so we need to check that the absolute difference should be as small as possible
+        // we use a for loop and two pointers and apply binary search on it
+        // intialize sum as nums[0]+nums[1]+nums[nums.size()-1];
+        int res=nums[0]+nums[1]+nums[nums.size()-1];
         sort(nums.begin(), nums.end()); // sort the array
-        for(int i=0; i<length-2; i++) // i starts from 0
+        for(int i=0; i<nums.size()-2; i++)
         {
-            int a=i+1; // a from 1
-            int b=length-1; // and b from n-1
-            while(a<b) // binary search
+            int left=i+1;
+            int right=nums.size()-1;
+            // now we do binary search and look for the the sum
+            while(left<right)
             {
-                // calculate the sum here instead of mid
-                int sum=nums[a]+nums[b]+nums[i];
-                // we check if sum > target
-                if(sum>target)
+                int sum=nums[i]+nums[left]+nums[right];
+                if(target>sum)
                 {
-                    // we decrement b and move left from right
-                    b--;
+                    left++;
                 }
                 else
                 {
-                    // else we go on right side by increasing a
-                    a++;
+                    right--;
                 }
-                // if this sum's abs diff is less then we update our res
-                if(abs(sum-target)<abs(res-target))
+                // now we check if the abs diff of sum is less than the prev values
+                if(abs(res-target)>abs(sum-target))
                 {
-                    // update res
-                    res=sum;
+                    res=sum; // update res
                 }
             }
         }
-        // return res
         return res;
     }
 };
