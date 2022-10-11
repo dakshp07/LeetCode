@@ -11,24 +11,20 @@
  */
 class Solution {
 public:
-    bool helper(TreeNode* left, TreeNode *right)
+    bool checkSymmetry(TreeNode* left, TreeNode* right)
     {
-        // now we see if they are null or not
-        if(left==NULL || right==NULL) return left==right;
-        // next is to check the values of right and left, they should same if they are symmetric
-        if(left->val!=right->val) return false;
-        // we move to other nodes now
-        // move to the right and left simultaneously
-        return (helper(left->left, right->right) && helper(left->right, right->left));
+        // if both are null then we return true
+        if(left==NULL && right==NULL) return true;
+        // if any of them is null we return false
+        // if the right, left node value are diff we return false
+        if(left==NULL || right==NULL || left->val!=right->val) return false;
+        // now we move to the other nodes
+        // simultaneously
+        return checkSymmetry(left->right, right->left) && checkSymmetry(left->left, right->right);
     }
     bool isSymmetric(TreeNode* root) {
-        // the mirror property is that the right node on right side is the left node on the left side
-        // right side: node->right
-        // left side: node->left
-        // so if we do inorder on right and left side independently
-        // right side order: rootLR
-        // left side order: rootRL
-        // if(root==NULL) return false;
-        return root==NULL || helper(root->left, root->right);
+        // so we start a recursive call
+        // and check if the left half is equal to right half or not
+        return checkSymmetry(root->left, root->right);
     }
 };
