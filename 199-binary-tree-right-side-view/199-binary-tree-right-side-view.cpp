@@ -11,28 +11,24 @@
  */
 class Solution {
 public:
-    void fun(TreeNode* node, int level, vector<int> &res)
+    void revpreorder(TreeNode* root, vector<int> &ans, int level)
     {
-        if(node==NULL) return;
-        // if our level == res.size() means we are at new level so we add
-        if(level==res.size())
-        {
-            res.push_back(node->val);
-        }
-        // now we do recursive call to L, R nodes
-        fun(node->right, level+1, res);
-        fun(node->left, level+1, res);
+        if(root==NULL) return;
+        // if the level becomes equal to size of vector
+        // means now we have again reached a right node
+        // so we push it to ans
+        if(level==ans.size()) ans.push_back(root->val);
+        // recursive calls for other nodes
+        revpreorder(root->right, ans, level+1);
+        revpreorder(root->left, ans, level+1);
     }
     vector<int> rightSideView(TreeNode* root) {
-        // we will do a reverse pre order
-        // pre order: rootLR
-        // reverse pre order: rootRL
-        // we will call recursively
-        // and keep an variable level to keep check
+        // so we just need the right side nodes of the tree
+        // we do something called the reverse preorder
+        // preoder: rootLR
+        // reverse preorder: rootRL
         vector<int> ans;
-        if(root==NULL) return ans;
-        // we do not need to push root here as we already start from 0
-        fun(root, 0, ans);
+        revpreorder(root, ans, 0);
         return ans;
     }
 };
