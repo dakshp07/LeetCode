@@ -1,19 +1,27 @@
 class MinStack {
 public:
-    // create a stack and store pair (number, minimum)
+    // we create a stack of pair<int, int> where the second integer is essentially the minimum we have seen so far
     stack<pair<int, int>> st;
     MinStack() {
         
     }
     
     void push(int val) {
-        // we see if stack is empty, if yes then the curr push is minimum
-        if(st.empty()) st.push(make_pair(val, val));
-        // if stack isnt empty then we check the second of top and see minimum
+        if(st.empty()) st.push({val, val});
         else
         {
-            if(st.top().second<val) st.push(make_pair(val, st.top().second));
-            else st.push(make_pair(val, val));
+            // if current val is smaller than the minimum seen so far
+            if(val<st.top().second)
+            {
+                // we update minimum
+                st.push({val, val});
+            }
+            else
+            {
+                // if current val is bigger than the minimum seen so far
+                // then we just push val and not update the minimum
+                st.push({val, st.top().second});
+            }
         }
     }
     
