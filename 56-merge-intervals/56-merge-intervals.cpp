@@ -1,25 +1,27 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        // we have to check the end with the start of next interval
+        // so we pick any ith ele from vector and check
+        // if they are overlapping
+        // if they are then we update the result vector
         sort(intervals.begin(), intervals.end()); // sort to make sure that they are in order
-        vector<vector<int>> res; // our last array
-        int prev_start=intervals[0][0]; // start
-        int prev_end=intervals[0][1]; // end
-        for(int i=1; i<intervals.size(); i++)
+        // for two intervals to overlap
+        // intervals[i][1]>=intervals[j][0] && intervals[i][0]<=intervals[j][1] or vice-versa
+        // as we sorted the vector intervals[i][0]<=intervals[j][1] is satisfied
+        // so we maitain a res vector and check if the new ele start is <= last ele of res end
+        vector<vector<int>> res;
+        res.push_back(intervals[0]);
+        for(int i=0; i<intervals.size(); i++)
         {
-            if(intervals[i][0]<=prev_end) // agar next interval ka start is less than or equal to prev ka end
+            if(intervals[i][0]<=res.back()[1])
             {
-                prev_end=max(prev_end, intervals[i][1]); // toh update with max
+                res.back()[1]=max(res.back()[1], intervals[i][1]);
             }
-            else // agar end bada hain next ke start se matalb we found the overlap, update the prev start and end
+            else
             {
-                res.push_back({prev_start, prev_end}); // push in res
-                prev_start=intervals[i][0]; // update
-                prev_end=intervals[i][1];
+                res.push_back(intervals[i]);
             }
         }
-        res.push_back({prev_start, prev_end}); // whatever is remaining will push that too
         return res;
     }
 };
