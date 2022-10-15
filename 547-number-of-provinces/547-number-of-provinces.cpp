@@ -1,41 +1,45 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& isConnected, vector<int> &vis, int node)
+    void dfs(vector<int> adj[], vector<int> &vis, int node)
     {
+        // mark as visited
         vis[node]=1;
-        // we now check the connections within the list and then traverse those adj nodes
-        // we check the adj only for the nodes who are connetced ie have 1 as the value
-        for(int i=0; i<isConnected[node].size(); i++)
+        // now visit all adj nodes and see them too
+        for(auto it: adj[node])
         {
-            // we do DFS only if that node is connected and not visited
-            if(isConnected[node][i]==1 && !vis[i])
-            {
-                dfs(isConnected, vis, i);
-            }
+            if(!vis[it]) dfs(adj, vis, it);
         }
     }
     int findCircleNum(vector<vector<int>>& isConnected) {
-        // we need to traverse and check if theres any connected component
-        // we have to basically find the no of different components in the graph
-        // like for example 1: [[1,1,0],[1,1,0],[0,0,1]]
-        // its an adj list:
-        /* Nodes:  1  2  3
-        Node: 1 -> 1  1  0
-        Node: 2 -> 1  1  0
-        Node: 3 -> 0  0  1
-        1=connected and 0=connected
-        we just need to return the no of groups
-        */
-        // lets peform a DFS
-        int nodes=isConnected.size();
-        // we peform a DFS on every node
-        vector<int> vis(nodes, 0);
-        int ans=0;
-        for(int i=0; i<nodes; i++)
+        // so essentially we need to find the number of islands
+        // but for that we need to know which all cities are connected to whom
+        // and then it becomes like a number of islands question
+        // so the adj list will contain a node and a list of all nodes that are connected to it
+        int n=isConnected.size();
+        vector<int> adj[n];
+        for(int i=0; i<n; i++)
         {
+            for(int j=0; j<isConnected[i].size(); j++)
+            {
+                if(isConnected[i][j]==1 && i!=j) // i!=j is to make their aint no entries like 1->1 or 2->2
+                {
+                    adj[i].push_back(j);
+                    // since they are bidirectionally connected
+                    // we push i->j and j->i
+                    adj[j].push_back(i);
+                }
+            }
+        }
+        // now we got the adj list
+        // and now we run a dfs
+        int ans=0;
+        vector<int> vis(n, 0);
+        for(int i=0; i<n; i++)
+        {
+            // if not visited we run a dfs
             if(!vis[i])
             {
-                dfs(isConnected, vis, i);
+                dfs(adj, vis, i);
                 ans++;
             }
         }
