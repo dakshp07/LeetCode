@@ -1,36 +1,31 @@
 class Solution {
 public:
-    void func(int index, vector<int> &nums, vector<vector<int>> &ans)
+    void func(vector<int>& nums, int ind, vector<vector<int>> &ans)
     {
-        if(index==nums.size()) // means we are at last index
+        int n=nums.size();
+        // base case
+        if(ind==n)
         {
-            // we got our permutation
+            // we push nums to ans and return
+            // as nums contains our ans
             ans.push_back(nums);
             return;
         }
-        for(int i=index; i<nums.size(); i++)
+        // now we iterate and swap indexes
+        for(int i=ind; i<n; i++)
         {
-            swap(nums[i], nums[index]); // swap with other index
-            // call recursively for other index
-            func(index+1, nums, ans);
-            // swap back to original places
-            swap(nums[i], nums[index]);
+            swap(nums[i], nums[ind]);
+            func(nums, ind+1, ans);
+            // backtrack
+            swap(nums[i], nums[ind]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        // one of the ways is to generate all permuations and store them using extra memory
-        // total no of permutations for arr of size n, will be n!
-        // we can start picking one number and then add them up in data structure
-        // we do this process recursively
-        // tc: O(n!) for permuations and O(n) for one traversal. so total tc: O(n!*n)
-        // sc: O(n) for data structure and O(n) for using a map
-        
-        // now we will remove extra states by using the swap method intelligently
-        // we pick one number from arr and build our tree by iterating over other element
-        // tc: O(n!*n)
-        // sc: O(1) because we aint using any extra space, only space is for return
+        // so a permutations happens when we swap two numbers
+        // and from that we can generate a few more permutations
+        // so we will do that and return the ans we get
         vector<vector<int>> ans;
-        func(0, nums, ans);
+        func(nums, 0, ans);
         return ans;
     }
 };
