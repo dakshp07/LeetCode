@@ -1,16 +1,17 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        // kadane lagao
-        int curr_sum=nums[0], max_sum=nums[0];
+        // we simly use kadane
+        // we either take the max(curr_ele, sum+curr_ele);
+        int curr=nums[0];
+        int sum=nums[0];
         for(int i=1; i<nums.size(); i++)
         {
-            // yaa toh curr+nums[i] ko lenge yaa phir sirf nums[i] ko
-            // max lenge
-            curr_sum=max(curr_sum+nums[i], nums[i]);
-            // sum main bhi curr, sum ka max lenge
-            max_sum=max(max_sum, curr_sum);
+            // our curr will be either curr+nums[i] or nums[i]
+            curr=max(nums[i]+curr, nums[i]);
+            // and sum will be either the sum that we have already seen ie curr or the sum
+            sum=max(curr, sum);
         }
-        return max_sum;
+        return sum;
     }
 };
