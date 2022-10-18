@@ -1,26 +1,25 @@
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        // 2 ptrs laga sakte
-        // ek ptr hoga nums1 pe or ek nums2 pe
-        int curr=m+n-1; // ye current pe point karega, joh peeche se hoga chalu
-        // peeche se chalu
-        m--, n--;
+        // we do a 2 pointer approach here
+        // and check both the vector ele and add them to nums[1] acc
+        int curr=m+n-1; // points to current ele
+        m--, n--; // we start from behind, so making them in 0 based indexing
         while(m>=0 && n>=0)
         {
-            // agar nums1 bada hua matlab mujhe peeche daalna usko
             if(nums1[m]>nums2[n])
             {
-                nums1[curr]=nums1[m]; // peeche daalna matlab curr pr daalna
-                curr--; // curr ko aage karo
-                m--; // m ko bhi
+                // agar nums1 bada hua matlab mujhe peeche daalna usko
+                nums1[curr]=nums1[m];
+                // we keep on looking on m
+                m--;
+                curr--;
             }
-            // agar nums2 bada hua toh woh peeche aayega ie ab nums2 curr pe jaayega
             else
             {
-                nums1[curr]=nums2[n]; // daaldo curr pe
-                curr--; // curr ko aage karo
-                n--; // n ko bhi aage karo
+                nums1[curr]=nums2[n];
+                n--;
+                curr--;
             }
         }
         // aisa ho sakta ki n waali array ie nums2 main element baaki rahenge kyuki agar woh badi huyi toh
@@ -28,8 +27,8 @@ public:
         while(n>=0) // jitne baaki sab peeche jaayenge
         {
             nums1[curr]=nums2[n]; // daaldo curr pe
-            curr--; // curr ko aage karo
             n--; // n ko bhi aage karo
+            curr--; // curr ko aage karo
         }
     }
 };
