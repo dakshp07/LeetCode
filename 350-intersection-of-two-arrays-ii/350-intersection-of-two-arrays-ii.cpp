@@ -1,29 +1,30 @@
 class Solution {
 public:
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
-        sort(nums1.begin(), nums1.end());
-        sort(nums2.begin(), nums2.end());
-        vector<int> res;
-        int length1=nums1.size();
-        int length2=nums2.size();
-        int point1=0, point2=0;
-        while(point1<length1 && point2<length2)
+        // we can use two map or two vec to keep track of freq
+        vector<int> freq_1(1001, 0);
+        vector<int> freq_2(1001, 0);
+        for(int i=0; i<nums1.size(); i++)
         {
-            if(nums1[point1]==nums2[point2])
+            freq_1[nums1[i]]++;
+        }
+        for(int i=0; i<nums2.size(); i++)
+        {
+            freq_2[nums2[i]]++;
+        }
+        vector<int> ans;
+        for(int i=0; i<1001; i++)
+        {
+            if(freq_1[i]>0 && freq_2[i]>0)
             {
-                res.push_back(nums1[point1]);
-                point1++;
-                point2++;
-            }
-            else if(nums1[point1]>nums2[point2])
-            {
-                point2++;
-            }
-            else if(nums1[point1]<nums2[point2])
-            {
-                point1++;
+                int n=min(freq_1[i], freq_2[i]);
+                while(n!=0)
+                {
+                    ans.push_back(i);
+                    n--;
+                }
             }
         }
-        return res;
+        return ans;
     }
 };
