@@ -1,10 +1,11 @@
 class MyQueue {
 public:
     // we can use two stacks
-    // and as soon as we go to pop operation we push all the content from stack1 to stack2
-    // and then pop from stack2
+    // we push on stack1 and while poping or while peeking we push all ele from stack1 to stack2
+    // and then pop/top from that stack2
     stack<int> st1, st2;
     MyQueue() {
+        
     }
     
     void push(int x) {
@@ -12,7 +13,6 @@ public:
     }
     
     int pop() {
-        // push all content from st1 to st2
         if(st2.empty())
         {
             while(!st1.empty())
@@ -21,13 +21,12 @@ public:
                 st1.pop();
             }
         }
-        int tp=st2.top();
+        int top=st2.top();
         st2.pop();
-        return tp;
+        return top;
     }
     
     int peek() {
-        // push all content from st1 to st2
         if(st2.empty())
         {
             while(!st1.empty())
@@ -40,7 +39,6 @@ public:
     }
     
     bool empty() {
-        // we return true if both are empty
         return st1.empty() && st2.empty();
     }
 };
