@@ -1,11 +1,13 @@
 class Solution {
 public:
     bool isValid(string s) {
-        if(s.length()==1 || s.length()%2!=0) return false;
+        // we just add opening paranthases in stack
+        // and once we see a closing one, we check if its corresponding opener is in stack or not
+        if(s.length()%2!=0) return false;
         stack<char> st;
         for(int i=0; i<s.length(); i++)
         {
-            if(s[i]=='(' || s[i]=='{' || s[i]=='[')
+            if(s[i]=='(' || s[i]=='[' || s[i]=='{')
             {
                 st.push(s[i]);
             }
@@ -14,9 +16,9 @@ public:
                 if(st.empty()) return false;
                 else
                 {
-                    char c=st.top();
+                    char top=st.top();
                     st.pop();
-                    if((c=='(' && s[i]==')') || (c=='{' && s[i]=='}') || (c=='[' && s[i]==']'))
+                    if((top=='(' && s[i]==')') || (top=='[' && s[i]==']') || (top=='{' && s[i]=='}'))
                     {
                         continue;
                     }
