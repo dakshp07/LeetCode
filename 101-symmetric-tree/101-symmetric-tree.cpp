@@ -11,20 +11,25 @@
  */
 class Solution {
 public:
-    bool checkSymmetry(TreeNode* left, TreeNode* right)
+    bool symmetric(TreeNode* left, TreeNode* right)
     {
-        // if both are null then we return true
+        // base cases:
+        // if we reach null in both sides of tree we return true
+        // as we reach the bottom at same time
         if(left==NULL && right==NULL) return true;
-        // if any of them is null we return false
-        // if the right, left node value are diff we return false
-        if(left==NULL || right==NULL || left->val!=right->val) return false;
-        // now we move to the other nodes
-        // simultaneously
-        return checkSymmetry(left->right, right->left) && checkSymmetry(left->left, right->right);
+        // the other base case would be when the values are diff, we return false
+        // or when just one of them is null
+        if(left==NULL || right==NULL) return false;
+        if(left->val!=right->val) return false;
+        // now we are done with bases cases
+        
+        // now next we need to go and check right left with left right
+        // and vice versa because thats what symmetry is
+        // if any of the is false we return false, so we use &&
+        return symmetric(left->right, right->left) && symmetric(left->left, right->right);
     }
     bool isSymmetric(TreeNode* root) {
-        // so we start a recursive call
-        // and check if the left half is equal to right half or not
-        return checkSymmetry(root->left, root->right);
+        // so we write a recursive function to check the two sides of BT
+        return symmetric(root->left, root->right);
     }
 };
