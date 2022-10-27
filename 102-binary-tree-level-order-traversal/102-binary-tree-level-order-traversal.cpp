@@ -12,30 +12,26 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        // in order to peform a level order we need to do a bfs
-        // in bfs we use queue to make sure that fifo order is maintained
+        // we use a queue to do this order traversal
+        // we push all the level nodes and then push all their left,right children to vector
+        // this is to a bfs, where we see a node and add its children to queue
+        // and at the same time we push root node to vector
         if(root==NULL) return {};
         vector<vector<int>> res;
         queue<TreeNode *> q;
-        q.push(root); // start with root
-        // we iterate till the queue is empty
+        q.push(root); // we start from root
         while(!q.empty())
         {
             int sz=q.size();
             vector<int> lvl;
-            // we iterate over the size of queue as we have to see for all nodes
             for(int i=0; i<sz; i++)
             {
-                // pick the node and pop it from queue
                 TreeNode *node=q.front();
                 q.pop();
-                // if they have childs then push those child to queue so that they can be next
                 if(node->left!=NULL) q.push(node->left);
                 if(node->right!=NULL) q.push(node->right);
-                // this will now complete our one level
                 lvl.push_back(node->val);
             }
-            // we now push this level to our ans
             res.push_back(lvl);
         }
         return res;
