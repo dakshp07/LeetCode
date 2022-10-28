@@ -13,18 +13,16 @@ class Solution {
 public:
     void invert(TreeNode* root)
     {
-        // if we reach end we return
-        if(root==NULL) return ;
-        // now we make two calls
-        // one for right and other one for left
-        // and swap the values
+        // if we reach end we return the function call
+        if(root==NULL) return;
+        // now we swap our nodes value
         swap(root->right, root->left);
+        // and go on for other nodes
         invert(root->right);
         invert(root->left);
     }
     TreeNode* invertTree(TreeNode* root) {
-        // so we keep just go to right and left subtree
-        // swap the node, and recursively call for other nodes
+        // we just need to swap the two values in left,right
         invert(root);
         return root;
     }
