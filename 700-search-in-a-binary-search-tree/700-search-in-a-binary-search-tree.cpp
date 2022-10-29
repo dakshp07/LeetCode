@@ -11,23 +11,22 @@
  */
 class Solution {
 public:
+    TreeNode* search(TreeNode* root, int val)
+    {
+        // if we reach the end of a tree
+        // we return null since val isnt in the tree
+        if(root==NULL) return NULL;
+        // if we reach our val node we return root
+        if(root->val==val) return root;
+        // now we check for current node val
+        // if its >val then we go on left subtree
+        if(root->val>val) return search(root->left, val);
+        // else if its <val we go on right
+        return search(root->right, val);
+    }
     TreeNode* searchBST(TreeNode* root, int val) {
-        // we will use the property of BST ie left<node and right>node
-        // we will traverse till we each end and dont find our ans
-        while(root!=NULL && root->val!=val)
-        {
-            // if(val>root->val)
-            // {
-            //     // our target is bigger than root
-            //     root=root->right;
-            // }
-            // if(val<root->val)
-            // {
-            //     // our target is smaller than root
-            //     root=root->left;
-            // }
-            root=root->val>val ? root->left : root->right;
-        }
-        return root;
+        // we will call recursively
+        // since its a bst at every node we check it value and go left/right accordingly
+        return search(root, val);
     }
 };
