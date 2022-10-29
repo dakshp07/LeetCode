@@ -11,41 +11,33 @@
  */
 class Solution {
 public:
-    TreeNode* insertIntoBST(TreeNode* root, int val) {
-        // we will try to add the node in the leaf node
-        if(root==NULL) return new TreeNode(val); // return node once we get position
-        TreeNode *curr=root;
-        while(true)
+    TreeNode* insert(TreeNode* root, int val)
+    {
+        // if we reach end of tree and there's no position for the val node to be added
+        // then we add it to end of tree
+        if(root==NULL)
         {
-            if(curr->val<=val)
-            {
-                // if curr < val means go in right side
-                // we check if left isnt null
-                if(curr->right!=NULL) curr=curr->right;
-                // if it isnt null we update the ans
-                else
-                {
-                    // if it isnt null means we need to go to left
-                    curr->right=new TreeNode(val);
-                    break;
-                }
-            }
-            // if val < curr
-            else
-            {
-                // to left side
-                // if curr < val means go in left side
-                // we check if left isnt null
-                if(curr->left!=NULL) curr=curr->left;
-                // if it isnt null we update the ans
-                else
-                {
-                    // if it isnt null means we move left
-                    curr->left=new TreeNode(val);
-                    break;
-                }
-            }
+            TreeNode* node=new TreeNode(val); // create a new node
+            return node; // return new node
         }
+        // now if current node val< our new node
+        // we go to right as its bigger than our current node
+        if(root->val<val)
+        {
+            root->right=insert(root->right, val);
+        }
+        // now if current node val> our new node
+        // we go on left to see if we can insert it there
+        else
+        {
+            root->left=insert(root->left, val);
+        }
+        // return our root
         return root;
+    }
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        // we recursively go through nodes
+        // since its a bst we go left/right accordingly
+        return insert(root, val);
     }
 };
