@@ -12,24 +12,27 @@ class Solution {
 public:
     TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q)
     {
-        // if we reach end without any returns in b/w then we return NULL because then p,q dont exist in BST
+        // if we reach end then we return null as lca
         if(root==NULL) return NULL;
-        // basically if we see a node whose val>p and <q then thats our lca
-        // beacuse after that p,q will descend into their own trees
-        if(root->val<p->val && root->val<q->val)
+        // now we see the current node val and compare it with p,q
+        if(root->val>p->val && root->val>q->val) 
         {
-            // if val<p and <q means we need to go to right subtree
-            return lca(root->right, p, q);
-        };
-        if(root->val>p->val && root->val>q->val)
-        {
-            // if val>p and >q means we need to go to left subtree
+            // if current node val is greater than both p,q val
+            // it means our lca will on left side
             return lca(root->left, p, q);
-        };
+        }
+        if(root->val<p->val && root->val<q->val) 
+        {
+            // if current node val is less than both p,q val
+            // it means our lca will on right side
+            return lca(root->right, p, q);
+        }
+        // in all other cases ie current node is >p and <q means root is our lca
         return root;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // basically the node where node p, q diverge into their own path is the lca
+        // we go recursively
+        // if at any node we diverge we return that node as our ans
         return lca(root, p, q);
     }
 };
