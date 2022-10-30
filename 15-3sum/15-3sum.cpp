@@ -15,29 +15,26 @@ public:
         // sc: O(m) where m is unique sets. But thats for return, usually not counted in sc
         // therefore sc: O(1)
         sort(nums.begin(), nums.end()); // sort to use 2 pointer
-        vector<vector<int>> res; // to store res
-        // for a 
+        vector<vector<int>> ans;
         for(int i=0; i<(int)nums.size()-2; i++)
         {
-            if(i==0 || (i>0 && nums[i]!=nums[i-1])) // checking for duplicates in a
+            if(i==0 || (i>0 && nums[i]!=nums[i-1])) // to remove duplicates of i
             {
-                // intialize pointers
                 int left=i+1;
                 int right=nums.size()-1;
-                int sum=0-nums[i];
-                // start 2 pointer
+                // so nums[left]+nums[right]+nums[i]=0
+                // now we need to change boundaries of left,right
+                // so we need to look for nums[left]+nums[right]=-nums[i]
+                int target=-1*nums[i];
                 while(left<right)
                 {
-                    // if we get our ans
-                    if(nums[left]+nums[right]==sum)
+                    if(nums[left]+nums[right]==target)
                     {
-                        // store them in temp
-                        vector<int> temp;
-                        temp.push_back(nums[i]);
-                        temp.push_back(nums[left]);
-                        temp.push_back(nums[right]);
-                        // push temp to res
-                        res.push_back(temp);
+                        vector<int> sum;
+                        sum.push_back(nums[left]);
+                        sum.push_back(nums[right]);
+                        sum.push_back(nums[i]);
+                        ans.push_back(sum);
                         // if we have dupliactes
                         // we skip left till we get unique
                         while(left<right && nums[left]==nums[left+1]) left++;
@@ -47,13 +44,11 @@ public:
                         left++;
                         right--;
                     }
-                    // if left and right is bigger than sum
-                    else if(nums[left]+nums[right]>sum) right--;
-                    // if left and right is smaller than sum
+                    else if(nums[left]+nums[right]>target) right--;
                     else left++;
                 }
             }
         }
-        return res;
+        return ans;
     }
 };
