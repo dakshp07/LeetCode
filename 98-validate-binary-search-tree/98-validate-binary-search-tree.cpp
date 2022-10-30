@@ -11,19 +11,22 @@
  */
 class Solution {
 public:
-    bool isValid(TreeNode* root, long left, long right)
+    bool valid(TreeNode* root, long long left, long long right)
     {
-        // if we reach the last node that is null means we never returned anywhere so we return true
-        if(root==NULL) return true;
-        // if root->val is smaller than left value or greater than right we return false
+        // if we reach end means we return true
+        if(root==NULL) return true; // as an empty bst is also valid
+        // now check the conditions
+        // if at any point we reach a node whose val is <=left or is >=right means we return false
+        // as its not at correct position in bst
         if(root->val<=left || root->val>=right) return false;
-        // else we upate our left val and right val in our recursive call and keep moving
-        return isValid(root->left, left, root->val) && isValid(root->right, root->val, right);
+        // now we go on left, right side of bst
+        // for left side we check if all nodes are <right
+        // for right side we check if all nodes are >left
+        return valid(root->left, left, root->val) && valid(root->right, root->val, right);
     }
     bool isValidBST(TreeNode* root) {
-        // we have to make sure that the rules of BST are followed
-        // lets write a recursive func
-        // we start with the max values that a left, right node can have ie long min, max respectively
-        return isValid(root, LONG_MIN, LONG_MAX);
+        // we do a recursive call on nodes
+        // we keep left,right vals and see if current node is >=left and <right 
+        return valid(root, LONG_MIN, LONG_MAX); // since node->val can -231<=Node.val<=231-1
     }
 };
