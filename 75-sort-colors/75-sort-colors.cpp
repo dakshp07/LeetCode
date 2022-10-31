@@ -1,35 +1,48 @@
 class Solution {
 public:
-    void sortColors(vector<int>& arr) {
-        // one could be use sort
-        // other could be store the numbers in freq array
-        // third is to use dutch national flag algo, more on this algo:
-        // we have three pointers, low=0, mid=0, high=size-1
-        // assume:
-        // ele in o to low-1 are 0s
-        // ele in mid+1 to high are 2s
-        // rest ele b/w low to mid are 1s
-        // how to do:
-        // if(mid==0) swap(mid, low) mid++ low++
-        // mid==1 mid++
-        // mid==2 swap(mid, high) high--
-        int low=0, mid=0, high=arr.size()-1;
-        while(mid<=high)
+    void sortColors(vector<int>& nums) {
+        // we can keep three pointers
+        // named as left,mid,right
+        // 0 to left contains all 0s
+        // left+1 to mid conatins all 1s
+        // and mid+1 to right contains all 2s
+        // if we see any number not in their respective zone, we swap them up
+        int left=0;
+        int right=nums.size()-1;
+        int mid=0;
+        while(mid<=right)
         {
-            if(arr[mid]==0)
+            // there could be 3 cases
+            // 1. when nums[mid]==0
+            // 2. when nums[mid]==1
+            // 3. when nums[mid]==2
+            
+            // case 1
+            if(nums[mid]==0)
             {
-                swap(arr[mid], arr[low]);
+                // since all 0s are at 0 to left
+                // so we swap
+                swap(nums[left], nums[mid]);
+                // and move both pointers forward
+                left++;
                 mid++;
-                low++;
             }
-            else if(arr[mid]==1)
+            // case 2
+            else if(nums[mid]==1)
             {
+                // since all 1s should be at left+1 to mid
+                // we do nothing as this 1 is at correct position
+                // just move the pointer forward
                 mid++;
             }
-            else if(arr[mid]==2)
+            // case 3
+            else if(nums[mid]==2)
             {
-                swap(arr[mid], arr[high]);
-                high--;
+                // since all 2s should be at mid+1 to right
+                // we swap
+                swap(nums[mid], nums[right]);
+                // and move pointers, basically right goes left
+                right--;
             }
         }
     }
