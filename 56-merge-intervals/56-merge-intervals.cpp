@@ -1,27 +1,34 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        // so we pick any ith ele from vector and check
-        // if they are overlapping
-        // if they are then we update the result vector
-        sort(intervals.begin(), intervals.end()); // sort to make sure that they are in order
-        // for two intervals to overlap
-        // intervals[i][1]>=intervals[j][0] && intervals[i][0]<=intervals[j][1] or vice-versa
-        // as we sorted the vector intervals[i][0]<=intervals[j][1] is satisfied
-        // so we maitain a res vector and check if the new ele start is <= last ele of res end
+        // we sort and check overlapping
+        // we say a interval overlaps, if its previous ones ending happens after it starts
         vector<vector<int>> res;
-        res.push_back(intervals[0]);
-        for(int i=0; i<intervals.size(); i++)
+        sort(intervals.begin(), intervals.end());
+        int prev_end=intervals[0][1];
+        int prev_start=intervals[0][0];
+        for(int i=1; i<intervals.size(); i++)
         {
-            if(intervals[i][0]<=res.back()[1])
+            // if prev end is greater than or equal to next intervals start
+            if(prev_end>=intervals[i][0])
             {
-                res.back()[1]=max(res.back()[1], intervals[i][1]);
+                // means we can merge them up
+                // so we update our prev end
+                prev_end=max(prev_end, intervals[i][1]);
             }
+            // if they overlap
             else
             {
-                res.push_back(intervals[i]);
+                // then we push our till now merged end, start to res
+                res.push_back({prev_start, prev_end});
+                // and also update them
+                prev_end=intervals[i][1];
+                prev_start=intervals[i][0];
             }
         }
+        // we push the last merged interval too
+        // since the for loop ends we would still have a merged interval left to add
+        res.push_back({prev_start, prev_end});
         return res;
     }
 };
