@@ -1,23 +1,30 @@
 class Solution {
 public:
     vector<string> findRepeatedDnaSequences(string s) {
-        // map laga lo
-        // string, uski freq daalenge
+        // so we know that the pattern is of 10 size
+        // we can put all those patterns in map with freq
+        if(s.length()<10) return {};
         unordered_map<string, int> mp;
         vector<string> res;
-        if(s.length()<10) return res;
-        for(int i=0; i<s.length()-9; i++)
+        // so we have a window size of 10, essentially 9 as we start from 0 index
+        int i=0, j=9;
+        // we traverse the string till j reaches end
+        while(j<s.length())
         {
-            // current pattern of 10 length
-            string temp=s.substr(i, 10);
-            // agar pattern map main hain, uska freq is 1
-            // means woh phele aa chuka so add in vector
-            if(mp.find(temp)!=mp.end() && mp[temp]==1)
+            // we add the substring to our map
+            mp[s.substr(i, j-i+1)]++; // we add 10 size substring
+            // we increment i, j to keep window size of 10
+            i++;
+            j++;
+        }
+        // now we check map, if for any 10 size pattern we have freq>1 we add them to res
+        // as they are repeated
+        for(auto it: mp)
+        {
+            if(it.second>1)
             {
-                res.push_back(temp);
+                res.push_back(it.first);
             }
-            // agar nhi hain woh map main toh add kardo
-            mp[temp]++;
         }
         return res;
     }
