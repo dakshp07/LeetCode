@@ -1,18 +1,14 @@
 class Solution {
 public:
-    // expand function
     string expand(string s, int left, int right)
     {
         if(left>right) return 0;
-        // move left and right acc to conditions
-        while(left>=0 && right<s.size() && s[left]==s[right])
+        while(left>=0 && s[left]==s[right])
         {
-            // update left and right
             left--;
             right++;
         }
-        // return the len
-        return s.substr(left + 1, right - (left + 1));
+        return s.substr(left+1, right-(left+1));
     }
     string longestPalindrome(string s) {
         // brute force way is to use two for loops and generate all substrings
@@ -23,16 +19,18 @@ public:
         // we use the concept of plaindrome where we expand from the center of a string
         // and look for the substring which are valid palindromes
         if(s.size()<1) return "";
-        int start=0, end=0; // start and end pointer
-        string ans;
+        string ans="";
         for(int i=0; i<s.size(); i++)
         {
-            // we can have two possibilities here
-            // one is odd len string, other even string
-            string odd=expand(s, i, i); // odd has one center
-            string even=expand(s, i, i+1); // even has two centers
-            string max = odd.size() > even.size() ? odd : even; // take the max len string
-            ans = max.length() > ans.length() ? max : ans; // get the ans as max
+            // now there are two types of palindromes
+            // 1.even length (eg: bb, abba)
+            // 2.odd length(eg: bab, racecar)
+            // so we try both possibilities
+            // and choose the one which gives max len ans
+            string odd=expand(s, i, i);
+            string even=expand(s, i, i+1);
+            string max=odd.size()>even.size()?odd:even;
+            ans=ans.size()<max.size()?max:ans;
         }
         return ans;
     }
