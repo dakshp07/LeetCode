@@ -12,34 +12,31 @@
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        // code will be similar to the normal level order traversal
-        // just add a flag to make sure that the zig zag order is maintained
-        queue<TreeNode*> q;
-        vector<vector<int>> ans;
-        if(root==NULL) return ans; // if we aint have any node
-        bool flag=true; // if its true we will put node from L->R, if its false we put from R->L
-        // push the root
+        // code is similar to level order traversal
+        // we keep a track with flag, acc to its value we decide if to go from L-R or R-L
+        vector<vector<int>> res;
+        queue<TreeNode *> q;
+        if(root==NULL) return res; // if we aint have any node
         q.push(root);
+        bool flag=true; // if its true we will put node from L->R, if its false we put from R->L
         while(!q.empty())
         {
-            // now lets see the left and right child
             int sz=q.size();
-            vector<int> levels(sz); // as we will be accessing the indexes on the basis of flag
+            vector<int> levels(sz);
             for(int i=0; i<sz; i++)
             {
-                TreeNode *node=q.front();
+                auto node=q.front();
                 q.pop();
                 // if its true we add on ith index or else we add on size-1 index ie size-1-i
                 int index=(flag) ? i : sz-1-i;
-                // add the node to our level
                 levels[index]=node->val;
                 if(node->left!=NULL) q.push(node->left);
-                if(node->right!=NULL) q.push(node->right);   
+                if(node->right!=NULL) q.push(node->right);
             }
             // change flag
             flag=!flag;
-            ans.push_back(levels);
+            res.push_back(levels);
         }
-        return ans;
+        return res;
     }
 };
