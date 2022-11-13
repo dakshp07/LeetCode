@@ -11,26 +11,28 @@
  */
 class Solution {
 public:
-    TreeNode* bstMaker(vector<int> &nums, int low, int high)
+    TreeNode* bstMaker(vector<int>& nums, int left, int right)
     {
-        // our base case will be when start>end as thats when we return
-        if(low>high) return NULL;
-        // now we find the mid
-        int mid=(low+high)/2;
-        // we call recursively for the part before mid and for part after mid
-        TreeNode* head=new TreeNode(nums[mid]);
-        // so the left part of tree has the numbers < root
-        // so we add the part from [left,mid-1] to left
-        head->left=bstMaker(nums, low, mid-1);
-        // and add the part from [mid+1,high] to right
-        head->right=bstMaker(nums, mid+1, high);
-        return head;
-        
+        // base case is similar to base case of bs
+        if(left>right) return NULL;
+        // now we find mid
+        int mid=(left+right)/2;
+        // so our root node ie head will be the num at pos mid
+        TreeNode *root=new TreeNode(nums[mid]);
+        // now left side of bst is nums less than root
+        // and right side has all nums greater than root
+        // so we assign all nodes on left of root from range of pos [left, mid-1]
+        root->left=bstMaker(nums, left, mid-1);
+        // and right nodes will be assigned from range of pos [mid+1, right]
+        root->right=bstMaker(nums, mid+1, right);
+        // return root node
+        return root;
     }
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        // we use binary search to make the bst
+        // we use bs to create the tree
+        // base case: if our nums is empty
         if(nums.size()==0) return NULL;
-        TreeNode* head=bstMaker(nums, 0, nums.size()-1);
-        return head;
+        TreeNode* root=bstMaker(nums, 0, nums.size()-1);
+        return root;
     }
 };
