@@ -11,29 +11,20 @@
  */
 class Solution {
 public:
-    TreeNode * buildTree(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd, map <int,int > &mp) {
-        if (preStart > preEnd || inStart > inEnd) return NULL;
-
-        TreeNode * root = new TreeNode(preorder[preStart]);
-        int elem = mp[root->val];
-        int nElem = elem-inStart;
-
-        root -> left=buildTree(preorder, preStart + 1, preStart + nElem, inorder,
-        inStart, elem - 1, mp);
-        root -> right=buildTree(preorder, preStart + nElem + 1, preEnd, inorder, 
-        elem + 1, inEnd, mp);
-        return root;
-    }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        // since we have the preorder and inorder
-        // we will look for root first and then solve the subtrees on right and left recursively in similar manner
-        map<int, int> in; // store the inorder traversal in map
-        for(int i=0; i<inorder.size(); i++)
-        {
-            in[inorder[i]]=i;
-        }
-        // call build tree recursively for the preorder 
-        TreeNode *root=buildTree(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1, in);
-        return root;
+        int rootIdx = 0;
+        return build(preorder, inorder, rootIdx, 0, inorder.size()-1);
+    }
+    
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int& rootIdx, int left, int right) {
+        if (left > right) return NULL;
+        int pivot = left;  // find the root from inorder
+        while(inorder[pivot] != preorder[rootIdx]) pivot++;
+        
+        rootIdx++;
+        TreeNode* newNode = new TreeNode(inorder[pivot]);
+        newNode->left = build(preorder, inorder, rootIdx, left, pivot-1);
+        newNode->right = build(preorder, inorder, rootIdx, pivot+1, right);
+        return newNode;
     }
 };
