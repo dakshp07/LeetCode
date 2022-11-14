@@ -11,63 +11,40 @@
  */
 class Solution {
 public:
-    TreeNode *findLastRight(TreeNode *root)
-    {
-        if(root->right==NULL)
-        {
-            return root;
-        }
-        return findLastRight(root->right);
-    }
-    TreeNode* helper(TreeNode* root)
-    {
-        if(root->left==NULL)
-        {
-            return root->right;
-        }
-        else if(root->right==NULL)
-        {
-            return root->left;
-        }
-        TreeNode *rightChild=root->right;
-        TreeNode *lastRight=findLastRight(root->left);
-        lastRight->right=rightChild;
-        return root->left;
-    }
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root==NULL) return NULL;
-        if(root->val==key)
-        {
-            return helper(root);
+        TreeNode* iter=root, *par=nullptr;
+		// search for key node & keep a pointer to current node's parent
+        while(iter&&iter->val!=key) 
+        {                              
+            par=iter;
+            if(iter->val<key) iter=iter->right;
+            else iter=iter->left;
         }
-        TreeNode *dummy=root;
-        while(root!=NULL)
+        if(!iter) return root; // node not found  => Case:1
+        // iter is the node to be deleted
+        
+        // node found with less than two children  => Case-2/3/4 combined
+        if(!iter->left or !iter->right) 
         {
-            if(root->val>key)
-            {
-                if(root->left!=NULL && root->left->val==key)
-                {
-                    root->left=helper(root->left);
-                    break;
-                }
-                else
-                {
-                    root=root->left;
-                }
-            }
-            else
-            {
-                if(root->right!=NULL && root->right->val==key)
-                {
-                    root->right=helper(root->right);
-                    break;
-                }
-                else
-                {
-                    root=root->right;
-                }
-            }
+            auto child=iter->left ? iter->left : iter->right; // find child node of iter if it exists
+            if(!par) root=child; // iter is root node. Update root as child of iter
+            else if(par->left==iter) par->left=child; // iter is left child. Update its parent's left pointer as iter's child
+            else par->right=child; // Else update parent's right pointer as iter's child
         }
-        return dummy;
+        // node found with both children => Case-5
+        else 
+        {
+            auto cur=iter; // cur maintains a reference to the node to be deleted
+            par=iter, iter=iter->right; // go to right subtree 
+            while(iter->left) par=iter, iter=iter -> left; // and find smallest node in that right subtree
+            cur->val=iter->val; // delete by replacing with smallest node found
+			// smallest node replaced from right subtree may have a right child. 
+			// So update that node's parent to hold the right child
+            if(par->left==iter) par->left=iter->right;          
+            else par->right=iter->right;
+        }
+		// dont show the interviewer that you are a leaker :)
+        delete iter; // free the memory		
+        return root;
     }
 };
