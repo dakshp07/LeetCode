@@ -12,27 +12,25 @@ class Solution {
 public:
     TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q)
     {
-        // if we reach end then we return null as lca
+        // base case: if we reach the end of tree, we return null as we dont have nodes p,q
         if(root==NULL) return NULL;
-        // now we see the current node val and compare it with p,q
-        if(root->val>p->val && root->val>q->val) 
+        // now since its a bst we compare val of current node ie root with p,q
+        // if p and q are <root, we go left
+        if(root->val>p->val && root->val>q->val)
         {
-            // if current node val is greater than both p,q val
-            // it means our lca will on left side
             return lca(root->left, p, q);
         }
-        if(root->val<p->val && root->val<q->val) 
+        // if p and q are >root, we go right
+        if(root->val<p->val && root->val<q->val)
         {
-            // if current node val is less than both p,q val
-            // it means our lca will on right side
             return lca(root->right, p, q);
         }
-        // in all other cases ie current node is >p and <q means root is our lca
+        // in other cases we know our lca will be root
         return root;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // we go recursively
-        // if at any node we diverge we return that node as our ans
+        // lca is basically the node where we diverge to look for p, q
+        // so we recursively call for both sides ie left, right
         return lca(root, p, q);
     }
 };
