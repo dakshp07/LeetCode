@@ -11,8 +11,10 @@ class Solution {
 public:
     TreeNode* lca(TreeNode* root, TreeNode* p, TreeNode* q)
     {
-        // base case: if root is null or if root is equal to p or q then root is our lca
-        if(root==NULL || root==p || root==q) return root;
+        // base case: if root is null we return null
+        if(root==NULL) return NULL;
+        // now if root==p or q then we return p,q accordingly
+        if(root->val==p->val || root->val==q->val) return root;
         // now we go on left, right side
         // if any of them returns null, that means the nodes are on other side
         TreeNode* right_node=lca(root->right, p, q);
