@@ -1,43 +1,31 @@
 class Solution {
 public:
+    void dfs(int room, int n, vector<vector<int>>& rooms, vector<int>& seen)
+    {
+        // base case: if we have already seen this room
+        if(seen[room]==1) return;
+        // mark current room as visited
+        seen[room]=1;
+        // and visit adj rooms
+        for(auto it: rooms[room])
+        {
+            if(!seen[it])
+            {
+                dfs(it, n, rooms, seen);
+            }
+        }
+    }
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
-        // we just need to see if we are visiting all rooms or not
-        // so we can do BFS or DFS, lets use a BFS
-        // so we have [[1],[2],[3],[]]
-        // means we can go to 1 from 0, so 1 is dependent on 0
-        // 0->1, 1->2, 2->3
-        /*
-        [[1,3],[3,0,1],[2],[0]]
-        graph: 0->{1, 3}, 1->{3, 0, 1}
-        */
-        int n=rooms.size(); // no of nodes
-        queue<int> q;
-        vector<int> vis(n, 0);
-        q.push(0); // push first room
-        vis[0]=1; // mark as visited
-        while(!q.empty())
+        // so we can just peform a normal bfs or dfs
+        // to see if we can visit all rooms or not
+        // in my previous solution i did bfs, we try dfs here
+        vector<int> seen(rooms.size(), 0);
+        // runover a dfs for all nodes
+        dfs(0, rooms.size(), rooms, seen);
+        for(int i=0; i<seen.size(); i++)
         {
-            int node=q.front();
-            q.pop();
-            for(auto it: rooms[node])
-            {
-                if(!vis[it])
-                {
-                    q.push(it);
-                    vis[it]=1;
-                }
-            }
+            if(seen[i]==0) return false; // as we were unable to visit that room
         }
-        // now we see the vis array if any of the node (ie room) isnt true means we havent visited that yet
-        // so we return false
-        for(int i=0; i<n; i++)
-        {
-            if(vis[i]==0)
-            {
-                // means false
-                return false;
-            }
-        }
-        return true;
+        return true; // return true in other cases
     }
 };
