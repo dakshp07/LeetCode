@@ -1,29 +1,27 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        // lets use a heap and map
-        // map will store a num, its freq and then we pass that map to our heap
+        // we can use a map to store freq, nums and then sort it using comperator
+        // tc: O(n logn) and we need to do it in much better tc
+        // so we use heap, we store freq,nums in heap and then return the ans
         unordered_map<int, int> mp;
+        for(int i=0; i<nums.size(); i++)
+        {
+            mp[nums[i]]++;
+        }
         priority_queue<pair<int, int>> pq;
-        // stre freq
-        for(auto &num: nums)
+        // we push freq,nums in our pq
+        for(auto it: mp)
         {
-            mp[num]++;
+            pq.push({it.second, it.first});
         }
-        // pass the freq of each num in heap
-        for(auto &i: mp)
-        {
-            // we make pair as (freq, num) so that heap will order acc to freq
-            pq.push(make_pair(i.second, i.first));
-        }
-        // now our heap has ans, we need to extract only top k ele
-        vector<int> res;
+        vector<int> ans;
         while(k!=0)
         {
-            res.push_back(pq.top().second);
+            ans.push_back(pq.top().second);
             pq.pop();
             k--;
         }
-        return res;
+        return ans;
     }
 };
