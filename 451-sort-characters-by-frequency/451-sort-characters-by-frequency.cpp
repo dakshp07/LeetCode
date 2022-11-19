@@ -1,26 +1,28 @@
-int cmpr(pair<char,int> a, pair<char,int> b)
-{
-    return a.second>b.second;
-}
-    
 class Solution {
 public:
     string frequencySort(string s) {
-        string res;
-        unordered_map<char, int> umap;
-        for(int i=0; i<s.length(); i++)
+        // this question is similar to Q-347 on LeetCode
+        // so we do it in simialr fashion
+        unordered_map<char, int> mp;
+        for(int i=0; i<s.size(); i++)
         {
-            umap[s[i]]++;
+            mp[s[i]]++;
         }
-        vector<pair<char,int>> v(umap.begin(), umap.end()) ;
-        
-        sort(v.begin(), v.end(), cmpr);
-        
-        for(int i=0; i<v.size(); i++)
+        priority_queue<pair<int, char>> pq;
+        for(auto it: mp)
         {
-            for(int j=0; j<v[i].second; j++)
+            pq.push({it.second, it.first});
+        }
+        string res="";
+        while(!pq.empty())
+        {
+            int freq=pq.top().first;
+            char word=pq.top().second;
+            pq.pop();
+            while(freq!=0)
             {
-                res += v[i].first;
+                res+=word;
+                freq--;
             }
         }
         return res;
