@@ -1,12 +1,13 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        // whenever we see top k and all those type questions
-        // we use heap in those cases, here we will use min heap
-        // as it orders the ele from min to max
+        // so we need to the closest ones ie the points with min distance
+        // so we use a min heap and not a max one that we used in all other previous question
+        // as min heap orders ele in ascending order
+        
+        // declare min heap
+        // heap stores: {distance, {x, y}}
         priority_queue<pair<double, pair<int, int>>, vector<pair<double, pair<int, int>>>, greater<pair<double, pair<int, int>>>> pq;
-        // i will store distance, both ele in my min heap
-        // distance will come first as we need ordering on its basis
         for(int i=0; i<points.size(); i++)
         {
             int x=points[i][0];
@@ -14,14 +15,15 @@ public:
             double dis=sqrt(x*x+y*y);
             pq.push({dis, {x, y}});
         }
-        vector<vector<int>> ans;
+        vector<vector<int>> res;
         while(k!=0)
         {
-            auto it=pq.top();
+            int x=pq.top().second.first;
+            int y=pq.top().second.second;
             pq.pop();
-            ans.push_back({it.second.first, it.second.second});
+            res.push_back({x, y});
             k--;
         }
-        return ans;
+        return res;
     }
 };
