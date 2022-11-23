@@ -1,28 +1,32 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        vector<string> words;
-        // stringstream se words without space store karo
+        // we will use string stream to store the words separately
         stringstream st(s);
         string word;
+        vector<string> alpha;
         while(st>>word)
         {
-            // vector main store karo words
-            words.push_back(word);
+            alpha.push_back(word);
         }
-        string ans="";
-        for(int i=0; i<words.size(); i++)
+        // now we have every word stored as a single word in alpha vector
+        // but without whitespaces
+        // eg: Input: s = "Let's take LeetCode contest"
+        // alpha: ["Let's", "take", "LeetCode", "contest"]
+        
+        // now i loop over alpha and reverse every single word
+        // and then combine them
+        string res="";
+        for(int i=0; i<alpha.size(); i++)
         {
-            // individual words ko reverse karo
-            string temp=words[i];
-            reverse(temp.begin(), temp.end());
-            // ans string main append karo
-            ans+=temp;
-            // space lagate jaao
-            ans+=" ";
+            reverse(alpha[i].begin(), alpha[i].end()); // or use 2 pointers instead of in built
+            res+=alpha[i];
+            res+=" ";
         }
-        // last space pop back
-        ans.pop_back();
-        return ans;
+        // after above for loop
+        // res: "s'teL ekat edoCteeL tsetnoc " wth white space at end
+        // we remove that one white space by pop back
+        res.pop_back();
+        return res;
     }
 };
