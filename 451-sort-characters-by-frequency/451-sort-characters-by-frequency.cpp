@@ -4,25 +4,28 @@ public:
         // this question is similar to Q-347 on LeetCode
         // so we do it in simialr fashion
         unordered_map<char, int> mp;
-        for(int i=0; i<s.size(); i++)
+        // store freq in char map
+        for(auto it: s)
         {
-            mp[s[i]]++;
+            mp[it]++;
         }
+        // pass char map in max heap as int, char pair
         priority_queue<pair<int, char>> pq;
         for(auto it: mp)
         {
             pq.push({it.second, it.first});
         }
+        // now we create the string
         string res="";
         while(!pq.empty())
         {
-            int freq=pq.top().first;
-            char word=pq.top().second;
+            int num=pq.top().first;
+            char ch=pq.top().second;
             pq.pop();
-            while(freq!=0)
+            while(num!=0)
             {
-                res+=word;
-                freq--;
+                res+=ch;
+                num--;
             }
         }
         return res;
