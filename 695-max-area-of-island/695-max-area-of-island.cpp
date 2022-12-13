@@ -2,35 +2,39 @@ class Solution {
 public:
     void dfs(vector<vector<int>>& grid, int row, int col, int &area)
     {
-        // we check if row, col are out od bound or not
-        if(row<0 || row>=grid.size() || col<0 || col>=grid[0].size() || grid[row][col]==0)
-        {
-            return;
-        }
-        grid[row][col]=0; // mark them as 0 so that we dont visit them again
-        area++; // increase the area by 1
-        // we will go left, right, top, down
-        dfs(grid, row+1, col, area); // down
-        dfs(grid, row-1, col, area); // up
-        dfs(grid, row, col-1, area); // left
-        dfs(grid, row, col+1, area); // right
+        // base case
+        // 1. if we go out of bounds
+        // 2. if we see a zero
+        if(row<0 || col<0 || row>=grid.size() || col>=grid[0].size() || grid[row][col]==0) return;
+        // we mark this ele as 0, so as to not count it twice
+        // essentially i'm using my grid as a seen array itself
+        grid[row][col]=0;
+        // we do area+1 now
+        area++;
+        // now we go up, down, left, right
+        dfs(grid, row-1, col, area);
+        dfs(grid, row+1, col, area);
+        dfs(grid, row, col-1, area);
+        dfs(grid, row, col+1, area);
     }
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        // we just need to return the no of 1s adj
-        // we will use DFS traversal
-        int max_area=0;
+        // so we need to find a group of 1s and see if we can make a group of them by checking if any 1s are 4 directionally covered with 1s
+        // we peform a dfs or bfs
+        // i will try to do a dfs
+        int ans=0;
         for(int i=0; i<grid.size(); i++)
         {
             for(int j=0; j<grid[0].size(); j++)
             {
-                if(grid[i][j]==1)
+                int area=0; // we start with area as 0 for every ele
+                if(grid[i][j]!=0) // we will visit this ele only if its 1
                 {
-                    int area=0;
                     dfs(grid, i, j, area);
-                    max_area=max(max_area, area);
+                    // we pick max of all area
+                    ans=max(ans, area);
                 }
             }
         }
-        return max_area;
+        return ans;
     }
 };
