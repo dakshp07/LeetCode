@@ -49,20 +49,18 @@ public:
         // {
         //     dp[n][prev_ind]=0;
         // }
-        
         // for loops
         for(int ind=n-1; ind>=0; ind--)
         {
-            for(int prev_ind=ind-1; prev_ind>=-1; prev_ind--) // as the prev ind will not go beyond ind-1
+            for(int prev_index=ind-1; prev_index>=-1; prev_index--)
             {
-                // not pick
-                int len=0+dp[ind+1][prev_ind+1];
-                if(prev_ind==-1 || nums[prev_ind]<nums[ind])
+                int pick=0, not_pick=0;
+                if(prev_index==-1 || nums[ind]>nums[prev_index])
                 {
-                    // we pick
-                    len=max(len, 1+dp[ind+1][ind+1]); // we move to next ele by incrementing our lis length by 1 and setting the prev_index to curr index which is picked
+                    pick=1+dp[ind+1][ind+1];
                 }
-                dp[ind][prev_ind+1]=len;
+                not_pick=dp[ind+1][prev_index+1];
+                dp[ind][prev_index+1]=max(pick, not_pick);
             }
         }
         return dp[0][-1+1]; // as we need to shift the prev_index by +1
