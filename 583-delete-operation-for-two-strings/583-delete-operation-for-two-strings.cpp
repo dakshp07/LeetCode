@@ -1,7 +1,11 @@
 class Solution {
 public:
     int minDistance(string word1, string word2) {
-        
+        // so this is essentially asking me to find my lcs
+        // and then keep the lcs as its longest common subsequence
+        // so we use the same code as dp
+        // and then subtract my lcs len from both strings len
+        // to get the total number of chars we want to delete
         int m = word1.size();
         int n = word2.size();
         
